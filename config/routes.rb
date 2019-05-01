@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'homepages/index'
   get 'reviews/new'
   get 'reviews/create'
   get 'categories/new'
