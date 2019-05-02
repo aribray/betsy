@@ -9,6 +9,15 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= yield %>
+    <header>
+      <% if session[:user_id] %>
+        <%= link_to "Log out", logout_path, method: "delete" %>
+      <% else %>
+        <%= link_to "Login with Github", github_login_path %>
+      <% end %>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
