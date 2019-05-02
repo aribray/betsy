@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 
   def create
     product = Product.new(product_params)
-      if task.save
+      if product.save
         redirect_to product_path(product.id)
       else
         flash[:error] = "Save was unsuccessful. Try again!"
@@ -55,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-     params.require(:product).permit(:name, :price)
+     params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id)
   end
 end
