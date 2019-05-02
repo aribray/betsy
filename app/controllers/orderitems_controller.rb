@@ -1,7 +1,7 @@
-class OrderitemsController < ApplicationController
-  def edit
-  end
+# frozen_string_literal: true
 
-  def update
-  end
+class OrderitemsController < ApplicationController
+  def edit; end
+
+  def update; end
 end
