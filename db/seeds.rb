@@ -65,7 +65,6 @@ products = [
     quantity: 20,
     retired: false,
     user_id: merchant_2.id,
-  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -75,7 +74,6 @@ products = [
     quantity: 20,
     retired: false,
     user_id: merchant_2.id,
-  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -85,7 +83,6 @@ products = [
     quantity: 20,
     retired: false,
     user_id: merchant_2.id,
-  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -95,7 +92,6 @@ products = [
     quantity: 20,
     retired: false,
     user_id: merchant_1.id,
-  # category_id: category_2.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -105,7 +101,6 @@ products = [
     quantity: 10,
     retired: false,
     user_id: merchant_1.id,
-  # category_id: category_2.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -115,7 +110,6 @@ products = [
     quantity: 20,
     retired: false,
     user_id: merchant_1.id,
-  # category_id: category_2.id,
   },
 ]
 
