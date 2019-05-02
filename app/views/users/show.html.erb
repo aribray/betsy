@@ -1,4 +1,26 @@
-<h1>Users#show</h1>
+<h1>Products Sold by <%=@user.username%></h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
 <p><i>~this page will show a list of products by a given merchant~</i></p>
+
+<% @user.products.each do |product| %>
+  <ul>
+    <li>
+      <%= product.name%>
+    </li>
+    <li>
+      <%= product.photo_url%><p>figure out how to show the actual photo</p>
+    </li>
+    <li>
+      <%= product.description%>
+    </li>
+    <li>
+      <%= number_to_currency(product.price)%>
+    </li>
+    <li>
+      <%= product.quantity%>
+    </li>
+  </ul>
+<%end%>
+
+
