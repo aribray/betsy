@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def logout; end
 
   def myaccount
+    @user = User.find_by(id: session[:user_id])
     # this will be the current logged in user's merchant dashboard
   end
 
