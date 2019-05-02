@@ -1,4 +1,24 @@
-<h1>Categories#new</h1>
+<h1>Create a New Category</h1>
 <p>Find me in app/views/categories/new.html.erb</p>
 
 <p><i>~this page will show a form to create a new category~</i></p>
+
+<main>
+  <% if @category.errors.any? %>
+    <ul class="errors">
+      <% @category.errors.each do |column, message| %>
+        <li>
+          <strong><%= column.capitalize %></strong> <%= message %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with model: @category do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.submit action_name, class: "new-category__submit-btn" %>
+  <% end %>
+</main>

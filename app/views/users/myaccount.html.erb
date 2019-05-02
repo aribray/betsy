@@ -1,0 +1,39 @@
+
+<% @user = User.first%>
+<h1>Account Details for <%=@user.username%></h1>
+<p>Find me in app/views/users/account.html.erb</p>
+
+<p><i>~this page will show the logged in users' merchant dashboard~</i></p>
+
+<nav>
+  <%= link_to "Create New Category", new_category_path %>
+  <%= link_to "Create New Product", new_product_path%>
+</nav>
+
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+         <th scope="col">Price</th>
+         <th scope="col">Quantity</th>
+         <th scope="col">Edit</th>
+         <th scope="col">Retire/Reinstate</th>
+       </tr> 
+    </thead>
+    <tbody>
+    <% @user.products.each do |product| %>
+      <tr>
+        <th scope="row"><%= product.name %></th>
+        <td><%= product.description%>
+        <td><%= number_to_currency(product.price)%>
+        <td><%= product.quantity%>
+        <td><%= link_to "Edit Product", edit_product_path(product.id)%>
+        <% if product.retired == false%>
+          <td><%= link_to "Retire", retire_path(product.id), method: :patch%>
+        <%else%>
+          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch%>
+        <%end%>
+      </tr>
+    <% end %>
+
