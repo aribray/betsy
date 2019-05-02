@@ -88,7 +88,7 @@ products = [
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
     description: "Actually just cranberry juice reduction.",
     name: "Bad Blood",
-    price: 9900,
+    price: 39900,
     quantity: 20,
     retired: false,
     user_id: merchant_1.id,
@@ -117,6 +117,7 @@ failed_product_saves = []
 products.each do |product|
   new_product = Product.new(product)
   if new_product.save
+    new_product.categories << category_2
     puts "Saved #{product[:name]} Successfully"
   else
     failed_product_saves << product[:name]
@@ -124,3 +125,9 @@ products.each do |product|
 end
 
 puts "Failed Product Saves #{failed_product_saves}"
+
+fashion_products = Product.where(price: 9900)
+fashion_products.each do |product|
+  product.categories.clear
+  product.categories << category_1
+end
