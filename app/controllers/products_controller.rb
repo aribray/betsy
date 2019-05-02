@@ -6,9 +6,12 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @product = Product.find_by(id: params[:id])
     if @product.nil?
       flash[:error] = "Could not find product with id: #{params[:id]}"
       redirect_to root_path, status: 302
+      head :not_found
+    end
   end
 
   def new
@@ -17,12 +20,12 @@ class ProductsController < ApplicationController
 
   def create
     product = Product.new(product_params)
-      if product.save
-        redirect_to product_path(product.id)
-      else
-        flash[:error] = "Save was unsuccessful. Try again!"
-        redirect_to root_path
-      end
+    if product.save
+      redirect_to product_path(product.id)
+    else
+      flash[:error] = "Save was unsuccessful. Try again!"
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -45,7 +48,7 @@ class ProductsController < ApplicationController
       @product.retired = true
     elsif @product.retired == true
       @product.retired = false
-    end  
+    end
   end
 
   private
@@ -55,6 +58,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-     params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id)
+    params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id)
   end
 end
