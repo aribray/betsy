@@ -4,4 +4,4 @@
 <p>quantity in stock: <%= @product.quantity %></p>
 <p>price: <%= @product.price %></p>
 
-<img src=<%= @product.photo_url %> />
+<%=image_tag(@product.photo_url)%>
