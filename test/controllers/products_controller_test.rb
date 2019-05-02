@@ -1,9 +1,11 @@
 require "test_helper"
 
 describe ProductsController do
+  let(:existing_product) { products(:turtleneck) }
+
   it "should get index" do
     get products_path
-
+ 
     must_respond_with :success
   end
 
