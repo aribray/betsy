@@ -16,3 +16,7 @@
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+nav li {
+  list-style-type: none;
+}
