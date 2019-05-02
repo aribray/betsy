@@ -1,22 +1,16 @@
 require "test_helper"
 
 describe UsersController do
-  it "should get index" do
-    get users_index_url
-    value(response).must_be :success?
-  end
-
-  it "should get show" do
-    get users_show_url
-    value(response).must_be :success?
-  end
-
   describe "login" do
     it "can log in an existing user" do
       user_count = User.count
+
       user = perform_login
 
       expect(user_count).must_equal User.count
+
+      expect(flash[:success]).must_equal "Logged in as returning user #{user.name}"
+
       expect(session[:user_id]).must_equal user.id
     end
 
@@ -27,6 +21,7 @@ describe UsersController do
         perform_login(user)
       }.must_change "User.count", 1
 
+      expect(flash[:success]).must_equal "Logged in as new user #{user.name}"
       user = User.find_by(uid: user.uid, provider: user.provider)
 
       expect(session[:user_id]).must_equal user.id
@@ -37,15 +32,12 @@ describe UsersController do
     end
   end
 
-  describe "current" do
-    it "responds with success if a user is logged in" do
-      logged_in_user = perform_login
-      get current_user_path
-      must_respond_with :success
-    end
-
-    it "responds with a redirect if no user is logged in" do
-      get current_user_path
+  describe "logout" do
+    it "logs out the current user" do
+      user = users(:dee)
+      perform_login(user)
+      delete logout_path(user)
+      expect(flash[:success]).must_equal "Successfully logged out!"
       must_respond_with :redirect
     end
   end

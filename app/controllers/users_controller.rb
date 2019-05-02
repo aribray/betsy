@@ -33,14 +33,9 @@ class UsersController < ApplicationController
   end
 
   def myaccount
-    @current_user = User.find(session[:user_id])
-    if @current_user.nil?
-      redirect_to root_path
-      flash[:error] = "You must be logged in to see this page"
-    end
   end
 
-  def orders
+  def myorders
     # this will be the current logged in user's orders, if we want that as its own page
   end
 end
