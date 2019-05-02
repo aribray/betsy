@@ -1,14 +1,40 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 describe CategoriesController do
-  it "should get new" do
-    get categories_new_url
-    value(response).must_be :success?
+  describe 'new' do
+    it 'should get new' do
+      get new_category_path
+      value(response).must_be :success?
+    end
   end
 
-  it "should get create" do
-    get categories_create_url
-    value(response).must_be :success?
-  end
+  describe 'create' do
+    it 'can create a new category' do
+      category_hash = {
+        category: {
+          name: 'Test Category'
+        }
+      }
 
+      expect do
+        post categories_path, params: category_hash
+      end.must_change 'Category.count', 1
+    end
+
+    it 'will give bad request response if there are any errors' do
+      category_hash = {
+        category: {
+          name: ''
+        }
+      }
+
+      expect do
+        post categories_path, params: category_hash
+      end.wont_change 'Category.count'
+
+      must_respond_with :bad_request
+    end
+  end
 end

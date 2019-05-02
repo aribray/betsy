@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :orderitems, only: [:edit, :update, :destroy] # clarify this more later
 
   resources :products, except: [:destroy]
-  get "/products/retire", to: "products#retire", as: "retire"
+  patch "/products/retire", to: "products#retire", as: "retire"
 
   resources :users, only: [:index, :show]
   get "/auth/github", as: "github_login"
