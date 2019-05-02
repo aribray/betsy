@@ -1,2 +1,7 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<p><i>~this page shows information about an individual product, linked from the products list or the user or category show page~</i></p>
+<h2><%= @product.name %></h2>
+<p>description: <%= @product.description %></p>
+<p>quantity in stock: <%= @product.quantity %></p>
+<p>price: <%= @product.price %></p>
+
+<%=image_tag(@product.photo_url)%>

@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  photo_url: MyString
-  description: MyString
-  name: MyString
-  price: 1
+turtleneck:
+  photo_url: https://via.placeholder.com/150
+  description: This is a turtleneck a la Elizabeth Holmes.
+  name: Black Turtleneck
+  price: 178
 
 two:
   photo_url: MyString
