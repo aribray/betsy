@@ -1,4 +1,15 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<h1>All Products</h1>
 
-<p><i>~this page will list all products, not be category or merchant~</i></p>
+<span>
+    <% @products.each do |product| %>
+        <img src= <%= product.photo_url %> >
+        <ul>
+            <li><%= link_to product.name, product_path(product.id) %></li>
+            <% if false %>
+            currently commented out.  need help with pathway to user/product_id
+            <li><%= link_to product.user_id, user_path(product.user_id) %></li> %>
+            <% end %>
+            <li><%= link_to product.description, product_path(product.id) %></li>
+        </ul>
+    <% end %>
+</span>
