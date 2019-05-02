@@ -15,8 +15,9 @@ Rails.application.routes.draw do
   patch "/products/retire", to: "products#retire", as: "retire"
 
   resources :users, only: [:index, :show]
-  get "/users/login" # authentication stuff... do this later
-  get "/users/logout", to: "users#logout", as: "logout"
-  get "/myaccount", to: "users#myaccount", as: "account"
-  get "/myaccount/orders", to: "users#orders", as: "user_orders"
+  get "/auth/github", as: "github_login"
+  get "/auth/:provider/callback", to: "users#login", as: "auth_callback"
+  delete "/users/logout", to: "users#logout", as: "logout"
+  get "/myaccount", to: "users#myaccount", as: "myaccount"
+  get "/myaccount/orders", to: "users#myorders", as: "myorders"
 end
