@@ -1,11 +1,19 @@
-# github_uid = "12345"
-# provider = "github"
+
+provider = "github"
 merchants = [
   {
     name: "Chuck Martinsen",
+    username: "Chuckles",
+    email: "chucklesthetabby@meows.edu",
+    uid: 12345,
+    provider: provider,
   },
   {
     name: "Missy Martinsen",
+    email: "missy@meows.edu",
+    username: "Mooper",
+    uid: 6789,
+    provider: provider,
   },
 ]
 
@@ -21,8 +29,8 @@ end
 
 puts "Failed Merchant Saves #{failed_merchant_saves}"
 
-merchant_1 = User.find_by(name: "Chuck Martinsen").id
-merchant_2 = User.find_by(name: "Missy Martinsen").id
+merchant_1 = User.find_by(name: "Chuck Martinsen")
+merchant_2 = User.find_by(name: "Missy Martinsen")
 
 categories = [
   {
@@ -43,8 +51,8 @@ categories.each do |category|
   end
 end
 
-category_1 = Category.find_by(name: "Fashion").id
-category_2 = Category.find_by(name: "Wellness").id
+category_1 = Category.find_by(name: "Fashion")
+category_2 = Category.find_by(name: "Wellness")
 
 puts "Failed Category Saves #{failed_category_saves}"
 
@@ -56,8 +64,8 @@ products = [
     price: 9900,
     quantity: 20,
     retired: false,
-    user_id: merchant_2,
-    category_id: category_1,
+    user_id: merchant_2.id,
+  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -66,8 +74,8 @@ products = [
     price: 9900,
     quantity: 20,
     retired: false,
-    user_id: merchant_2,
-    category_id: category_1,
+    user_id: merchant_2.id,
+  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -76,8 +84,8 @@ products = [
     price: 9900,
     quantity: 20,
     retired: false,
-    user_id: merchant_2,
-    category_id: category_1,
+    user_id: merchant_2.id,
+  # category_id: category_1.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -86,8 +94,8 @@ products = [
     price: 9900,
     quantity: 20,
     retired: false,
-    user_id: merchant_1,
-    category_id: category_2,
+    user_id: merchant_1.id,
+  # category_id: category_2.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -96,8 +104,8 @@ products = [
     price: 6999,
     quantity: 10,
     retired: false,
-    user_id: merchant_1,
-    category_id: category_2,
+    user_id: merchant_1.id,
+  # category_id: category_2.id,
   },
   {
     photo_url: "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM",
@@ -106,8 +114,8 @@ products = [
     price: 12900,
     quantity: 20,
     retired: false,
-    user_id: merchant_1,
-    category_id: category_2,
+    user_id: merchant_1.id,
+  # category_id: category_2.id,
   },
 ]
 
