@@ -3,6 +3,11 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find_by(id: params[:id])
+    if @order.nil?
+      flash[:error] = "Could not find order with id: #{params[:id]}"
+      redirect_to root_path, status: 302
+    end
   end
 
   def create

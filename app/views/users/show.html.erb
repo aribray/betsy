@@ -1,15 +1,12 @@
 <h1>Products Sold by <%=@user.username%></h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
-<p><i>~this page will show a list of products by a given merchant~</i></p>
 
 <% @user.products.each do |product| %>
   <ul>
     <li>
-      <%= product.name%>
+      <%=image_tag(product.photo_url)%>    
     </li>
     <li>
-      <%= product.photo_url%><p>figure out how to show the actual photo</p>
+      <h3><%= link_to product.name, product_path(product.id) %></h3>
     </li>
     <li>
       <%= product.description%>
@@ -22,5 +19,6 @@
     </li>
   </ul>
 <%end%>
+
 
 

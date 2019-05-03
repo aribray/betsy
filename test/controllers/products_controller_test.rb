@@ -32,15 +32,16 @@ describe ProductsController do
   end
 
   describe "new" do
-    describe "logged in user" do
-      before do
-        perform_login(users(:dee))
-      end
-      it "succeeds" do
-        get new_product_path
+    it "succeeds" do
+      perform_login(users(:dee))
+      get new_product_path
 
-        must_respond_with :success
-      end
+      must_respond_with :success
+    end
+    
+    it "redirects if user is not logged in" do
+      get new_product_path
+      must_respond_with :redirect
     end
   end
 

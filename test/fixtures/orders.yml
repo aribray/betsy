@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
-  address: MyString
-  cc_name: MyString
-  cc_number: 1
-  cvv: 1
-  zipcode: 1
+  email: jessica@mail.com
+  address: 123 Road St., Seattle, WA
+  cc_name: Jessica Caley
+  cc_number: 1234123412341234
+  cvv: 123
+  zipcode: 98122
 
 two:
   email: MyString
