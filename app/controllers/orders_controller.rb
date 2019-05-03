@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    # set session[:order_id]?
   end
 
   def destroy
