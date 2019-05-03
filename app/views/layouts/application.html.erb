@@ -37,8 +37,8 @@
         <% end %>
 
         <%# This should eventually show whether there's a user logged in or not, once we figure out that logic %>
-        <% if @current_user %>
-          <%= button_to "Cart", order_path(@current_user.id), method: :get, class: "btn btn-primary nav-link" %>
+        <% if session[:order_id] %>
+          <%= button_to "Cart", order_path(session[:order_id]), method: :get, class: "btn btn-primary nav-link" %>
         <% end %>
       </nav>
     </header>
