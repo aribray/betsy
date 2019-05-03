@@ -2,6 +2,10 @@
 
 one:
   description: MyString
+  rating: 4
+  product: turtleneck
 
 two:
   description: MyString
+  rating: 3
+  product: two

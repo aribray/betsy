@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: "homepages#index"
 
-  resources :reviews, only: [:new, :create] # might not need new
+   # might not need new
 
   resources :categories, only: [:new, :create, :show]
 
@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   resources :orderitems, only: [:create, :edit, :update, :destroy] # clarify this more later #added create
 
-  resources :products, except: [:destroy]
+  resources :products, except: [:destroy] do
+    resources :reviews, only: [:new, :create]
+  end
   patch "/products/retire", to: "products#retire", as: "retire"
 
   resources :users, only: [:index, :show]
