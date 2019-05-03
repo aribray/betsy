@@ -37,6 +37,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      flash[:error] = "Could not find product with id: #{params[:id]}"
+      redirect_to product_path
+    end
   end
 
   def update

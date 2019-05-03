@@ -31,13 +31,13 @@ describe ProductsController do
     end
   end
 
-  # describe "new" do
-  #   it "succeeds" do
-  #     get new_product_path
+  describe "new" do
+    it "succeeds" do
+      get new_product_path
 
-  #     must_respond_with :success
-  #   end
-  # end
+      must_respond_with :success
+    end
+  end
 
   describe "create" do
     describe "logged in users" do
