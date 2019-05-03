@@ -135,10 +135,41 @@ describe ProductsController do
     end
   end
 
-  # it "should get edit" do
-  #   get products_edit_url
-  #   value(response).must_be :success?
-  # end
+  describe "edit" do
+    describe "logged in users" do
+      before do
+        perform_login(users(:dee))
+        merchant = new_merchant
+      end
+      it "should get edit" do
+        get edit_product_path(Product.first.id)
+
+        must_respond_with :success
+      end
+
+      it "should respond with error message if the product doesn't exist" do
+        get edit_product_path(-1)
+
+        expect(flash[:error]).must_equal "Could not find this product."
+      end
+    end
+
+    describe "Guest users (not logged in)" do
+      it "should respond with found" do
+        get edit_product_path(Product.first.id)
+
+        must_respond_with :found
+      end
+
+      it "should respond with error message to prompt user to log in" do
+        get edit_product_path(-1)
+
+        expect(flash[:error]).must_equal "You must be logged in to do this action"
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+  end
 
   # it "should get update" do
   #   get products_update_url
