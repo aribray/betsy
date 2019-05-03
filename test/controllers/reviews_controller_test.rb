@@ -12,34 +12,56 @@ describe ReviewsController do
   end
 
   describe 'create' do
-    it 'can create a new review' do
-      product = products(:turtleneck)
-      review_hash = {
-        review: {
-          rating: 4,
-          description: "This is great!",
-          product: product.id
+    describe 'guest users' do
+      it 'can create a new review' do
+        product = products(:turtleneck)
+        review_hash = {
+          review: {
+            rating: 4,
+            description: 'This is great!',
+            product_id: product.id
+          }
         }
-      }
+        expect do
+          post reviews_path, params: review_hash
+        end.must_change 'Review.count', 1
+      end
 
-      expect{
-        post reviews_path, params: review_hash
-      }.must_change 'Review.count', 1
+      it 'will give bad request response if there are any errors' do
+        review_hash = {
+          review: {
+            rating: nil,
+            description: 'Just okay.',
+            product_id: nil
+          }
+        }
+
+        expect do
+          post reviews_path, params: review_hash
+        end.wont_change 'Review.count'
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal 'Save was unsuccessful. Try again!'
+      end
+    end # end of logged in users block
+
+    describe 'logged in users' do
+      it 'cannot leave a review for their own products' do
+        perform_login
+        review_hash = {
+          review: {
+            rating: 4,
+            description: 'This is great!',
+            product_id: products(:turtleneck).id
+          }
+        }
+
+        expect do
+          post reviews_path, params: review_hash
+        end.wont_change 'Review.count'
+
+        expect(flash[:error]).must_equal 'You cannot review your own products!'
+      end
     end
-
-    # it 'will give bad request response if there are any errors' do
-    #   review_hash = {
-    #     review: {
-          
-    #       description: "Just okay."
-    #     }
-    #   }
-
-    #   expect do
-    #     post reviews_path, params: review_hash
-    #   end.wont_change 'Review.count'
-
-    #   must_respond_with :bad_request
-    # end
   end
 end
