@@ -24,12 +24,10 @@ class ProductsController < ApplicationController
       flash[:success] = "Product added successfully"
       redirect_to product_path(product.id)
     else
-      # produc.errors.messages.each do |field, messages|
-      #   flash.now[field] = messages
-      # end
-      # render :new, status: :bad_request
-      flash[:error] = "Save was unsuccessful. Try again!"
-      redirect_to root_path
+      product.errors.messages.each do |field, messages|
+        flash.now[field] = messages
+      end
+      render :new, status: :bad_request
     end
   end
 
