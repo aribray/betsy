@@ -1,5 +1,5 @@
-<p><i>~this page shows information about an individual product, linked from the products list or the user or category show page~</i></p>
 <h2><%= @product.name %></h2>
+<img src= <%= @product.photo_url %> alt="image of #{@product.name}">
 <p>description: <%= @product.description %></p>
 <p>quantity in stock: <%= @product.quantity %></p>
 <p>price: <%= @product.price %></p>
@@ -22,5 +22,3 @@
     <% end %>
 
 <%= render "/reviews/new"%>
-
-

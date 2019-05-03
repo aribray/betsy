@@ -2,9 +2,9 @@
 
 <span>
     <% @products.each do |product| %>
-        <img src= <%= product.photo_url %> >
+        <img src= <%= product.photo_url %> alt="image of #{product.name}">
         <ul>
-            <li><%= link_to product.name, product_path(product.id) %></li>
+            <li><h3><%= link_to product.name, product_path(product.id) %></h3></li>
             <% if false %>
             currently commented out.  need help with pathway to user/product_id
             <li><%= link_to product.user_id, user_path(user.id) %></li> %>
