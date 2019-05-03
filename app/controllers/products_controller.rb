@@ -43,12 +43,14 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.nil?
-      flash[:error] = "Could not find product with id: #{params[:id]}"
+    if @product.update(product_params)
+      flash[:success] = "Product updated successfully!"
+      redirect_to product_path(@product.id)
     else
-      @product.update_attributes(product_params)
-      flash[:success] = "Product Updated"
-      redirect_to product_path(product.id)
+      @product.errors.messages.each do |field, messages|
+        flash.now[field] = messages
+      end
+      render :edit, status: :bad_request
     end
   end
 

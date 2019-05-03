@@ -38,6 +38,7 @@ describe ProductsController do
 
       must_respond_with :success
     end
+    
     it "redirects if user is not logged in" do
       get new_product_path
       must_respond_with :redirect
@@ -144,8 +145,8 @@ describe ProductsController do
     describe "logged in users" do
       before do
         perform_login(users(:dee))
-        merchant = new_merchant
       end
+
       it "should get edit" do
         get edit_product_path(Product.first.id)
 
@@ -161,26 +162,94 @@ describe ProductsController do
     end
 
     describe "Guest users (not logged in)" do
-      it "should respond with found" do
+      it "should respond with found and error message to prompt user to log in" do
         get edit_product_path(Product.first.id)
 
         must_respond_with :found
-      end
-
-      it "should respond with error message to prompt user to log in" do
-        get edit_product_path(-1)
-
         expect(flash[:error]).must_equal "You must be logged in to do this action"
         must_respond_with :redirect
         must_redirect_to root_path
       end
     end
-  end
 
-  # it "should get update" do
-  #   get products_update_url
-  #   value(response).must_be :success?
-  # end
+    describe "update" do
+      describe "update as a logged in user/merchant" do
+        before do
+          perform_login(users(:dee))
+
+          input_photo_url = "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM"
+          input_description = "black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam."
+          input_name = "Iconic Tech Turtleneck"
+          input_price = 9900
+          input_quantity = 20
+          input_user_id = users(:dee).id
+          @test_input = {
+            photo_url: input_photo_url,
+            description: input_description,
+            name: input_name,
+            price: input_price,
+            quantity: input_quantity,
+            user_id: input_user_id,
+          }
+
+          @product_to_update = Product.create(@test_input)
+        end
+
+        it "will update an existing product" do
+          updated_input_description = "a sleak black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam"
+
+          updated_test_input = {
+            "product": {
+              description: updated_input_description,
+            },
+          }
+
+          expect {
+            patch product_path(@product_to_update.id), params: updated_test_input
+          }.wont_change "Product.count"
+
+          must_respond_with :redirect
+          @product_to_update.reload
+          expect(@product_to_update.name).must_equal @test_input[:name]
+          expect(@product_to_update.user_id).must_equal User.find(@test_input[:user_id]).id
+          expect(@product_to_update.description).wont_equal @test_input[:description]
+          expect(@product_to_update.description).must_equal updated_input_description
+          expect(flash[:success]).must_equal "Product updated successfully!"
+        end
+
+        it "will return a bad_request when asked to update with invalid data" do
+          bad_input_name = ""
+          updated_test_input = {
+            "product": {
+              name: bad_input_name,
+            },
+          }
+
+          expect {
+            patch product_path(@product_to_update.id), params: updated_test_input
+          }.wont_change "Product.count"
+
+          must_respond_with :bad_request
+          @product_to_update.reload
+          expect(@product_to_update.name).must_equal @test_input[:name]
+          expect(@product_to_update.user_id).must_equal User.find(@test_input[:user_id]).id
+          expect(@product_to_update.description).must_equal @test_input[:description]
+          expect(flash[:name]).must_equal ["can't be blank"]
+        end
+      end
+
+      describe "update as Guest" do
+        it "should respond with found and error message to prompt user to login" do
+          patch product_path(Product.first.id)
+
+          must_respond_with :found
+          expect(flash[:error]).must_equal "You must be logged in to do this action"
+          must_respond_with :redirect
+          must_redirect_to root_path
+        end
+      end
+    end
+  end
 
   # it "should get retire" do
   #   get products_retire_url
