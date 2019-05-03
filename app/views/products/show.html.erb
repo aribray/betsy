@@ -5,3 +5,12 @@
 <p>price: <%= @product.price %></p>
 
 <%=image_tag(@product.photo_url)%>
+
+<% @product.reviews.each do |review|%>
+<%= review %>
+<%end%>
+
+<%= render "/reviews/new"%>
+
+<%#<%= link_to "Add Review", new_product_review_path(@product.id)%>
+
