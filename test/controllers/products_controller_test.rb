@@ -52,7 +52,6 @@ describe ProductsController do
         input_name = "Iconic Tech Turtleneck"
         input_price = 9900
         input_quantity = 20
-        input_retired = false
         input_user_id = new_merchant.id
         test_input = {
           "product": {
@@ -61,7 +60,6 @@ describe ProductsController do
             name: input_name,
             price: input_price,
             quantity: input_quantity,
-            retired: input_retired,
             user_id: input_user_id,
           },
         }
@@ -84,7 +82,6 @@ describe ProductsController do
         input_name = ""
         input_price = 9900
         input_quantity = 20
-        input_retired = false
         input_user_id = new_merchant.id
         test_input = {
           "product": {
@@ -93,7 +90,6 @@ describe ProductsController do
             name: input_name,
             price: input_price,
             quantity: input_quantity,
-            retired: input_retired,
             user_id: input_user_id,
           },
         }
@@ -114,7 +110,6 @@ describe ProductsController do
         input_name = "Iconic Tech Turtleneck"
         input_price = 9900
         input_quantity = 20
-        input_retired = false
         input_user_id = merchant.id
         test_input = {
           "product": {
@@ -123,7 +118,6 @@ describe ProductsController do
             name: input_name,
             price: input_price,
             quantity: input_quantity,
-            retired: input_retired,
             user_id: input_user_id,
           },
         }
@@ -134,7 +128,7 @@ describe ProductsController do
 
         new_product = Product.find_by(name: input_name)
         expect(new_product).must_equal nil
-
+        expect(flash[:error]).must_equal "You must be logged in to do this action"
         must_respond_with :redirect
         must_redirect_to root_path
       end
