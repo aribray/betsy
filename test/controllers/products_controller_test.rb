@@ -237,7 +237,7 @@ describe ProductsController do
         end
       end
 
-      describe "update as a logged in user/merchant" do
+      describe "update as Guest" do
         it "should respond with found and error message to prompt user to login" do
           patch product_path(Product.first.id)
 
