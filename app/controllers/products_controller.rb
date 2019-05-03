@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_individual_product, only: [:show, :edit, :update, :retire]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -16,6 +17,10 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+
+    if params[:user_id]
+      @product.user_id = params[:user_id]
+    end
   end
 
   def create

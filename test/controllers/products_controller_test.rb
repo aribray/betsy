@@ -2,6 +2,7 @@ require "test_helper"
 
 describe ProductsController do
   let(:existing_product) { products(:turtleneck) }
+  let(:new_merchant) { users(:merchant) }
 
   it "should get index" do
     get products_path
@@ -10,7 +11,7 @@ describe ProductsController do
   end
 
   describe "show" do
-    it "should be OK to show an existing, valid book" do
+    it "should be OK to show an existing, valid product" do
       valid_product_id = existing_product.id
 
       get product_path(valid_product_id)
@@ -30,18 +31,19 @@ describe ProductsController do
     end
   end
 
-  describe "new" do
-    it "succeeds" do
-      get new_product_path
+  # describe "new" do
+  #   it "succeeds" do
+  #     get new_product_path
 
-      must_respond_with :success
-    end
-  end
+  #     must_respond_with :success
+  #   end
+  # end
 
   describe "create" do
     describe "logged in users" do
       before do
         perform_login(users(:dee))
+        merchant = new_merchant
       end
 
       it "will save a new product and redirect if given valid inputs" do
@@ -51,7 +53,7 @@ describe ProductsController do
         input_price = 9900
         input_quantity = 20
         input_retired = false
-        input_user_id = @user.id
+        input_user_id = new_merchant.id
         test_input = {
           "product": {
             photo_url: input_photo_url,
@@ -83,7 +85,7 @@ describe ProductsController do
         input_price = 9900
         input_quantity = 20
         input_retired = false
-        input_user_id = @user.id
+        input_user_id = new_merchant.id
         test_input = {
           "product": {
             photo_url: input_photo_url,
@@ -104,30 +106,39 @@ describe ProductsController do
       end
     end
 
-    # describe "Not Logged in users (Guest Users)" do
-    #   it "will redirect to some page if the user attempts to do this with any input" do
-    #     input_title = "Practical Object Oriented Programming in Ruby"
-    #     input_author = "Sandi Metz"
-    #     input_description = "A look at how to design object-oriented systems"
-    #     test_input = {
-    #       "book": {
-    #         title: input_title,
-    #         author_id: Author.create(name: input_author).id,
-    #         description: input_description,
-    #       },
-    #     }
+    describe "Not logged in users (Guest Users)" do
+      it "will redirect to some page if the user attempts to do this with any input" do
+        merchant = new_merchant
+        input_photo_url = "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM"
+        input_description = "black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam."
+        input_name = "Iconic Tech Turtleneck"
+        input_price = 9900
+        input_quantity = 20
+        input_retired = false
+        input_user_id = merchant.id
+        test_input = {
+          "product": {
+            photo_url: input_photo_url,
+            description: input_description,
+            name: input_name,
+            price: input_price,
+            quantity: input_quantity,
+            retired: input_retired,
+            user_id: input_user_id,
+          },
+        }
 
-    #     expect {
-    #       post books_path, params: test_input
-    #     }.wont_change "Book.count"
+        expect {
+          post products_path, params: test_input
+        }.wont_change "Product.count"
 
-    #     new_book = Book.find_by(title: input_title)
-    #     expect(new_book).must_equal nil
+        new_product = Product.find_by(name: input_name)
+        expect(new_product).must_equal nil
 
-    #     must_respond_with :redirect
-    #     must_redirect_to root_path
-    #   end
-    # end
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
   end
 
   # it "should get edit" do
