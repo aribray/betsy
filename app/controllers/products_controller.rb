@@ -28,9 +28,9 @@ class ProductsController < ApplicationController
     product.user_id = @current_user.id if @current_user
     if product.save
       flash[:success] = "Product added successfully"
-      redirect_to product_path(product.id)
+      redirect_to product_path(@product.id)
     else
-      product.errors.messages.each do |field, messages|
+      @product.errors.messages.each do |field, messages|
         flash.now[field] = messages
       end
       render :new, status: :bad_request
@@ -38,6 +38,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      flash[:error] = "Could not find this product."
+      redirect_back fallback_location: products_path
+    end
   end
 
   def update

@@ -5,9 +5,6 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_and_belongs_to_many :categories
 
-  # has_many :category_products
-  # has_many :categories, through: :product
-
   belongs_to :user
 
   validates :name, presence: true, uniqueness: true
