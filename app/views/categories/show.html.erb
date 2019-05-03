@@ -1,0 +1,27 @@
+<h1>Products in <%=@category.name%> Category</h1>
+<p>Find me in app/views/categories/show.html.erb</p>
+
+<p><i>~this page will show a list of products by a given category~</i></p>
+<p><i>(format should be same as users#show)</i></p>
+
+<% @category.products.each do |product| %>
+  <ul>
+    <li>
+      <%= product.name%>
+    </li>
+    <li>
+      <%= product.photo_url%><p>figure out how to show the actual photo</p>
+    </li>
+    <li>
+      <%= product.description%>
+    </li>
+    <li>
+      <%= number_to_currency(product.price)%>
+    </li>
+    <li>
+      <%= product.quantity%>
+    </li>
+  </ul>
+<%end%>
+
+

@@ -4,17 +4,45 @@
     <title>Betsy</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <header>
-      <% if session[:user_id] %>
-        <%= link_to "Log out", logout_path, method: "delete" %>
-      <% else %>
-        <%= link_to "Login with Github", github_login_path %>
-      <% end %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <%= link_to "scAmazon", root_path, class: "navbar-brand" %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Browse by Categories</a>
+          <div class="dropdown-menu">
+            <% Category.all.each do |cat| %>
+              <%= link_to cat.name, category_path(cat.id), class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Browse by Merchants</a>
+          <div class="dropdown-menu">
+            <% User.all.each do |user| %>
+              <%= link_to user.name, user_path(user.id), class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </li>
+        <li class="nav-item"><%= link_to "All Products", products_path, class: "nav-link"  %></li>
+      
+        <% if @current_user %>
+          <li class="nav-item"><%= link_to "My Account", myaccount_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Log out", logout_path, method: "delete", class: "nav-link"  %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to "Login with Github", github_login_path, class: "nav-link" %></li>
+        <% end %>
+
+        <%# This should eventually show whether there's a user logged in or not, once we figure out that logic %>
+        <% if session[:order_id] %>
+          <%= button_to "Cart", order_path(session[:order_id]), method: :get, class: "btn btn-primary nav-link" %>
+        <% else %>
+          <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-primary nav-link" %>        
+        <% end %>
+      </nav>
     </header>
     <main>
       <%= yield %>
