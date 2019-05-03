@@ -37,4 +37,4 @@ describe CategoriesController do
       must_respond_with :bad_request
     end
   end
-end
+ end
