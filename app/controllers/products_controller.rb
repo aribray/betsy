@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_individual_product, only: [:show, :edit, :update, :retire]
+  before_action :require_login, only: [:new, :create, :edit, :update, :retire]
 
   def index
     @products = Product.all
@@ -16,15 +17,22 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+
+    if params[:user_id]
+      @product.user_id = params[:user_id]
+    end
   end
 
   def create
     product = Product.new(product_params)
     if product.save
+      flash[:success] = "Product added successfully"
       redirect_to product_path(product.id)
     else
-      flash[:error] = "Save was unsuccessful. Try again!"
-      redirect_to root_path
+      product.errors.messages.each do |field, messages|
+        flash.now[field] = messages
+      end
+      render :new, status: :bad_request
     end
   end
 
