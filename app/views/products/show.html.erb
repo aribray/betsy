@@ -6,11 +6,21 @@
 
 <%=image_tag(@product.photo_url)%>
 
-<% @product.reviews.each do |review|%>
-<%= review %>
-<%end%>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Rating</th>
+        <th scope="col">Description</th>
+       </tr> 
+    </thead>
+    <tbody>
+    <% @product.reviews.each do |review|%>
+      <tr>
+        <th scope="row"><%= review.rating %></th>
+        <td><%= review.description%>
+      </tr>
+    <% end %>
 
 <%= render "/reviews/new"%>
 
-<%#<%= link_to "Add Review", new_product_review_path(@product.id)%>
 
