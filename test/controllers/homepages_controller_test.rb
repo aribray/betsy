@@ -5,5 +5,4 @@ describe HomepagesController do
     get homepages_index_url
     value(response).must_be :success?
   end
-
 end
