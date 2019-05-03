@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:new, :create, :show]
 
+  get "/orders/empty", to: "orders#empty_order", as: "empty_order" # this has to be above resources :orders
+
   resources :orders, except: [:new] # might not need index
   get "/orders/cust_info", to: "orders#cust_info", as: "cust_info"
   patch "/orders/submit", to: "orders#submit", as: "submit"
