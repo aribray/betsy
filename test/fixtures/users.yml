@@ -11,5 +11,12 @@ two:
   name: MyString
   username: MyString
   email: MyString
-  uid: 1
+  uid: 2
   provider: MyString
+
+merchant:
+  name: elizabeth
+  username: holmes
+  email: scammer@badblood.com
+  uid: 3
+  provider: github
