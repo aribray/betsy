@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/orders/cust_info", to: "orders#cust_info", as: "cust_info"
   patch "/orders/submit", to: "orders#submit", as: "submit"
 
-  resources :orderitems, only: [:edit, :update, :destroy] # clarify this more later
+  resources :orderitems, only: [:create, :edit, :update, :destroy] # clarify this more later #added create
 
   resources :products, except: [:destroy]
   patch "/products/retire", to: "products#retire", as: "retire"

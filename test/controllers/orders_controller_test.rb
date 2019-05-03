@@ -7,7 +7,7 @@ describe OrdersController do
       value(response).must_be :success?
     end
 
-    it "should show a list of products sold by the user" do
+    it "should show a list of products in cart" do
       order = orders(:one)
       get order_path(order.id)
       must_respond_with :success
@@ -18,6 +18,10 @@ describe OrdersController do
 
       must_respond_with :redirect
       expect(flash[:error]).must_equal "Could not find order with id: -1"
+    end
+
+    it "can't view another user's cart" do
+      # implement this later, if there's time
     end
   end
 

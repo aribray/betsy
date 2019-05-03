@@ -5,3 +5,5 @@
 <p>price: <%= @product.price %></p>
 
 <%=image_tag(@product.photo_url)%>
+
+<%= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>

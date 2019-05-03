@@ -1,8 +1,23 @@
-<h1>Orders#show</h1>
+<h1>Cart</h1>
 <p>Find me in app/views/orders/show.html.erb</p>
 
-<p><i>~this page will show the cart~</i></p>
+<p>We'll want to add functionality to edit quantity</p>
+<table class="table">
+  <thead>
+    <th scope="col">Product</th>
+    <th scope="col">Quantity</th>
+    <th scope="col"></th>
 
-<h2>Cart</h2>
-<p>this will show a table of all orderitems with order_id of @order.id</p>
+  </thead>
+  <tbody>
+    <% @current_order.orderitems.each do |orderitem| %>
+      <tr>
+        <td><%= orderitem.product.name %></td>
+        <td><%= orderitem.quantity %></td>
+        <td><%= button_to "Remove", orderitem_path(orderitem.id), method: :delete, params: {orderitem_id: orderitem.id}, class: "btn btn-secondary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
+<%= button_to "Checkout", edit_order_path(@current_order.id), method: :get, class: "btn btn-primary" %>
