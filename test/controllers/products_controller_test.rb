@@ -32,7 +32,6 @@ describe ProductsController do
   end
 
   describe "new" do
-    describe "logged in user" do
       before do
         perform_login(users(:dee))
         merchant = new_merchant
@@ -42,7 +41,6 @@ describe ProductsController do
 
         must_respond_with :success
       end
-    end
   end
 
   describe "create" do
