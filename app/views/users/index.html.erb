@@ -1,4 +1,17 @@
-<h1>Users#index</h1>
+<h1>All Merchants</h1>
 <p>Find me in app/views/users/index.html.erb</p>
 
 <p><i>~this page will show a list of merchants... although i don't think we'll need it?~</i></p>
+
+<% @users.each do |merchant| %>
+<ul>
+  <li>
+    <%= link_to merchant.name, user_path(merchant.id) %>
+  </li>
+  <li>
+    <%= merchant.email %>
+  </li>
+</ul>
+<%end%>
+
+

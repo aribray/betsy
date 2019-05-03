@@ -56,4 +56,10 @@ describe OrdersController do
   #   value(response).must_be :success?
   # end
 
+  describe "empty_order" do
+    it "should get empty_order" do
+      get empty_order_path
+      value(response).must_be :success?
+    end
+  end
 end

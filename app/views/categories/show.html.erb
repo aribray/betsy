@@ -1,9 +1,10 @@
-<h1>Products Sold by <%=@user.username%></h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>Products in <%=@category.name%> Category</h1>
+<p>Find me in app/views/categories/show.html.erb</p>
 
-<p><i>~this page will show a list of products by a given merchant~</i></p>
+<p><i>~this page will show a list of products by a given category~</i></p>
+<p><i>(format should be same as users#show)</i></p>
 
-<% @user.products.each do |product| %>
+<% @category.products.each do |product| %>
   <ul>
     <li>
       <%= product.name%>

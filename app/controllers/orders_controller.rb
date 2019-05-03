@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    # set session[:order_id]?
   end
 
   def destroy
@@ -27,4 +28,7 @@ class OrdersController < ApplicationController
 
   def cust_info
   end
+
+  # This is so there can be a "cart" even when there's no order started
+  def empty_order; end
 end
