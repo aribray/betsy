@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
   def retire
     if @product.nil?
       flash[:error] = "Could not find product with id: #{params[:id]}"
-    elsif @product.retired == false
+    if @product.retired == false
       @product.retired = true
     elsif @product.retired == true
       @product.retired = false
