@@ -9,5 +9,13 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true
-  validates :price, numericality: {greater_than: 0}
+  validates :price, numericality: { greater_than: 0 }
+
+  def average_review
+    if self.reviews.average(:rating) == nil
+      return "not reviewed yet!"
+    else
+      return self.reviews.average(:rating)
+    end
+  end
 end
