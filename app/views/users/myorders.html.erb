@@ -2,3 +2,30 @@
 <p>Find me in app/views/users/myorders.html.erb</p>
 
 <p><i>~this page will show a list of orders associated with a logged in merchant, if we want this to be its own page~</i></p>
+
+ <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Order</th>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+         <th scope="col">Subtotal</th>
+         <th scope="col">Order Placed</th>
+         <th scope="col">Mark as Shipped</th>
+         <th scope="col">Order Status</th>
+       </tr> 
+    </thead>
+    <tbody>
+    <% if !@user.orderitems.nil?%>
+      <% @user.orderitems.each do |item| %>
+        <tr>
+          <td><%= link_to Order.find_by(id: item.order_id).id, order_path(item.order_id) %>
+          <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
+          <td><%= item.quantity%>
+          <td><%= number_to_currency(Product.find_by(id: item.product_id).price)%>
+          <td><%= item.created_at %>
+          <td><%= link_to "Shipped" %>
+          <td><%= Order.find_by(id: item.order_id).status %>
+        </tr>
+      <% end %>
+    <%end%>

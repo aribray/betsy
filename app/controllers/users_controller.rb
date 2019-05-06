@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   end
 
   def myorders
+    @user = User.find_by(id: 2)
     # this will be the current logged in user's orders, if we want that as its own page
   end
 
