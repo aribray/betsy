@@ -74,8 +74,10 @@ describe OrderitemsController do
 
   describe 'ship' do
     describe 'logged in users' do
+    before do
+      perform_login
+    end
       it 'will change orderitems shipped status to true' do
-        perform_login
         item = @user.orderitems.first
         patch ship_path(item.id)
 
@@ -84,8 +86,6 @@ describe OrderitemsController do
       end
 
       it 'will flash an error and redirect of the item is not found' do
-        perform_login
-
         patch ship_path(-1)
 
         must_redirect_to root_path
