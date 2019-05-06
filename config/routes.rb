@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :products, except: [:destroy] do
     resources :reviews, only: [:new, :create]
   end
-  patch "/products/retire", to: "products#retire", as: "retire"
+
+  patch "/products/:id/retire", to: "products#retire", as: "retire"
 
   resources :users, only: [:index, :show]
   get "/auth/github", as: "github_login"

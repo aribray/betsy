@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-  before_action :find_individual_product, only: [:show, :edit, :update, :retire]
-  before_action :require_login, only: [:new, :create, :edit, :update, :retire]
+  before_action :find_individual_product, only: %i[show edit update retire]
+  before_action :require_login, only: %i[new create edit update retire]
 
   def index
     @products = Product.all
@@ -23,7 +25,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user_id = @current_user.id if @current_user
     if @product.save
-      flash[:success] = "Product added successfully"
+      flash[:success] = 'Product added successfully'
       redirect_to product_path(@product.id)
     else
       @product.errors.messages.each do |field, messages|
@@ -37,14 +39,14 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     if @product.nil?
-      flash[:error] = "Could not find this product."
+      flash[:error] = 'Could not find this product.'
       redirect_back fallback_location: products_path
     end
   end
 
   def update
     if @product.update(product_params)
-      flash[:success] = "Product updated successfully!"
+      flash[:success] = 'Product updated successfully!'
       redirect_to product_path(@product.id)
     else
       @product.errors.messages.each do |field, messages|
@@ -56,12 +58,18 @@ class ProductsController < ApplicationController
 
   def retire
     if @product.nil?
-      flash[:error] = "Could not find product with id: #{params[:id]}"
-    elsif @product.retired == false
+      flash[:error] = "Could not find this product"
+      redirect_to root_path
+      return
+    end
+    
+    if @product.retired == false
       @product.retired = true
     elsif @product.retired == true
       @product.retired = false
     end
+    @product.save
+    redirect_to myaccount_path
   end
 
   private
