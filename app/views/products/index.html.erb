@@ -6,9 +6,7 @@
             <img src= <%= product.photo_url %> alt="image of #{product.name}">
             <ul>
                 <li><h3><%= link_to product.name, product_path(product.id) %></h3></li>
-                <% if false %>
-                <li><%= link_to product.user_id, user_path(user.id) %></li> %>
-                <% end %>
+                <li><%= link_to product.user_id, user_path(product.user_id) %></li>
                 <li><%= link_to product.description, product_path(product.id) %></li>
             </ul>
         <% end %>
