@@ -13,23 +13,26 @@ class User < ApplicationRecord
   def self.build_from_github(auth_hash)
     user = User.new
     user.uid = auth_hash[:uid]
-    user.provider = "github"
-    user.name = auth_hash["info"]["name"]
-    user.username = auth_hash["info"]["nickname"]
-    user.email = auth_hash["info"]["email"]
-
-    return user
+    user.provider = 'github'
+    user.name = auth_hash['info']['name']
+    user.username = auth_hash['info']['nickname']
+    user.email = auth_hash['info']['email']
+    user
   end
 
+  # this method works for all orderitems. having trouble filtering by status
   def self.total_revenue(user, shipped = nil)
-    if !shipped.nil?
-      orderitems = user.orderitems.where(shipped: shipped)
-    end
     total = 0
-    user.orderitems.each do |item|
-      total += Product.find_by(id: item.product_id).price * item.quantity
+    if shipped == true
+      orderitems = user.orderitems.where(shipped: shipped)
+      orderitems.each do |item|
+        total += Product.find_by(id: item.product_id).price * item.quantity
+      end
+    else
+      user.orderitems.each do |item|
+        total += Product.find_by(id: item.product_id).price * item.quantity
+      end
     end
     total
   end
-
 end
