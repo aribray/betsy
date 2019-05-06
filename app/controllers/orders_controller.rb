@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
-  def index
-  end
+  before_action :find_order
 
   def show
     @order = Order.find_by(id: params[:id])
@@ -11,6 +10,16 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.new
+    if @order.save
+      flash[:success] = "Order created successfully"
+      redirect_to order_path(@order.id)
+    else
+      @order.errors.messages.each do |field, messages|
+        flash.now[field] = messages
+      end
+      render :new, status: :bad_request
+    end
     # set session[:order_id]?
   end
 

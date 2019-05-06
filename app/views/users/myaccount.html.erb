@@ -1,4 +1,4 @@
-<% @user = User.first%>
+
 <h1>Account Details for <%=@user.username%></h1>
 <p>Find me in app/views/users/account.html.erb</p>
 
@@ -29,9 +29,9 @@
         <td><%= product.quantity%>
         <td><%= link_to "Edit Product", edit_product_path(product.id)%>
         <% if product.retired == false%>
-          <td><%= link_to "Retire", retire_path(product.id), method: 'retire'%>
+          <td><%= link_to "Retire", retire_path(product.id), method: :patch %>
         <%else%>
-          <td><%= link_to "Reinstate", retire_path(product.id), method: 'retire'%>
+          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch %>
         <%end%>
       </tr>
     <% end %>

@@ -254,14 +254,35 @@ describe ProductsController do
     end
   end
 
-  describe "retire" do
+  describe 'retire' do
+    describe 'logged in user' do
+      it 'should change the retired status of the product' do
+        perform_login
 
-    it "should change the retired status of the product" do
-      perform_login
+        patch retire_path(existing_product.id)
+        must_respond_with :found
+        expect(existing_product.reload.retired).must_equal true
+      end
 
-      post retire_path(existing_product.id)
-      must_respond_with :found
-      expect(existing_product.reload.retired).must_equal true
+      it "will raise an error and redirect to root path for nonexistent product" do
+        perform_login
+
+        patch retire_path(-1)
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "Could not find this product"
+      end
+    end
+
+    describe 'logged out user' do
+      it 'should respond with found and error message to prompt user to login' do
+        patch retire_path(Product.first.id)
+
+        must_respond_with :found
+        expect(flash[:error]).must_equal 'You must be logged in to do this action'
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
     end
   end
 end
