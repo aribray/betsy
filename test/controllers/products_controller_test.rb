@@ -263,6 +263,15 @@ describe ProductsController do
         must_respond_with :found
         expect(existing_product.reload.retired).must_equal true
       end
+
+      it "will raise an error and redirect to root path for nonexistent product" do
+        perform_login
+
+        patch retire_path(-1)
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "Could not find this product"
+      end
     end
 
     describe 'logged out user' do
