@@ -11,7 +11,13 @@
     <header>
       <% if flash.count > 0 %>
         <section class="flash">
-          <div class="alert alert-danger">
+          <% if flash[:failure] %>
+            <div class="alert alert-danger" role="alert">
+          <% elsif flash[:error] %>
+            <div class="alert alert-warning" roler="alert">
+          <% else flash[:success] %>
+            <div class="alert alert-success" role="alert">
+          <% end %>
           <% flash.each do |name, message| %>
             <% if message.class == Array %>
               <ul>
