@@ -38,7 +38,7 @@
 
         <%# This should eventually show whether there's a user logged in or not, once we figure out that logic %>
         <% if session[:order_id] %>
-          <%= button_to "Cart", order_path(session[:order_id]), method: :get, class: "btn btn-primary nav-link" %>
+          <%= button_to "Cart", cart_path, method: :get, class: "btn btn-primary nav-link" %>
         <% else %>
           <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-primary nav-link" %>        
         <% end %>

@@ -2,28 +2,30 @@ require "test_helper"
 
 describe OrdersController do
   describe "show" do
-    it "should get show" do
-      order = orders(:one)
-      get order_path(order.id)
-      value(response).must_be :success?
-    end
+    # Hey Ari! This is yours now. You can probably delete the stuff below.
 
-    it "should show a list of products in cart" do
-      order = orders(:one)
-      get order_path(order.id)
-      must_respond_with :success
-    end
+    # it "should get show" do
+    #   order = orders(:one)
+    #   get order_path(order.id)
+    #   value(response).must_be :success?
+    # end
 
-    it "will redirect if we try to view products from an invalid user" do
-      get order_path(-1)
+    # it "should show a list of products in cart" do
+    #   order = orders(:one)
+    #   get order_path(order.id)
+    #   must_respond_with :success
+    # end
 
-      must_respond_with :redirect
-      expect(flash[:error]).must_equal "Could not find order with id: -1"
-    end
+    # it "will redirect if we try to view products from an invalid user" do
+    #   get order_path(-1)
 
-    it "can't view another user's cart" do
-      # implement this later, if there's time
-    end
+    #   must_respond_with :redirect
+    #   expect(flash[:error]).must_equal "Could not find order with id: -1"
+    # end
+
+    # it "can't view another user's cart" do
+    #   # implement this later, if there's time
+    # end
   end
 
   # it "should get create" do

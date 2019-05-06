@@ -1,5 +1,5 @@
 <h1>Shopping Cart</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<p>Find me in app/views/orders/cart.html.erb</p>
 
 <p>We'll want to add functionality to edit quantity</p>
 <table class="table">
@@ -21,7 +21,7 @@
   </tbody>
 </table>
 
-<%= button_to "Checkout", edit_order_path(@current_order.id), method: :get, class: "btn btn-primary" %>
+<%= button_to "Checkout", checkout_path, method: :get, class: "btn btn-primary" %>
 
 
 

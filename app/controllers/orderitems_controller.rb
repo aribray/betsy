@@ -22,7 +22,7 @@ class OrderitemsController < ApplicationController
 
     is_successful = order_item.save
     if is_successful
-      redirect_to order_path(current_order.id)
+      redirect_to cart_path
     else
       # figure out what we want to do here later
       redirect_to root_path
@@ -36,7 +36,7 @@ class OrderitemsController < ApplicationController
   def ship
     @orderitem = Orderitem.find_by(id: params[:id])
     if @orderitem.nil?
-      flash[:error] = 'Could not find this product'
+      flash[:error] = "Could not find this product"
       redirect_to root_path
       return
     end
@@ -44,7 +44,7 @@ class OrderitemsController < ApplicationController
     if @orderitem.shipped == false
       @orderitem.shipped = true
     else
-      flash[:error] = 'This item has already shipped'
+      flash[:error] = "This item has already shipped"
     end
     @orderitem.save
     redirect_to myorders_path
@@ -53,7 +53,7 @@ class OrderitemsController < ApplicationController
   def destroy
     @order_item = Orderitem.find_by(id: params[:orderitem_id])
     @order_item.destroy
-    redirect_to order_path(@current_order.id)
+    redirect_to cart_path
   end
 
   private
