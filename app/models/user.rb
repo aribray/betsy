@@ -20,4 +20,16 @@ class User < ApplicationRecord
 
     return user
   end
+
+  def self.total_revenue(user, shipped = nil)
+    if !shipped.nil?
+      orderitems = user.orderitems.where(shipped: shipped)
+    end
+    total = 0
+    user.orderitems.each do |item|
+      total += Product.find_by(id: item.product_id).price * item.quantity
+    end
+    total
+  end
+
 end
