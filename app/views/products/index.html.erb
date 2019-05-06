@@ -2,14 +2,13 @@
 
 <span>
     <% @products.each do |product| %>
-        <%= image_tag(product.photo_url, height: "250", alt: "product image")%>
-        <ul>
-            <li><h3><%= link_to product.name, product_path(product.id) %></h3></li>
-            <% if false %>
-            currently commented out.  need help with pathway to user/product_id
-            <li><%= link_to product.user_id, user_path(user.id) %></li> %>
-            <% end %>
-            <li><%= link_to product.description, product_path(product.id) %></li>
-        </ul>
+        <% if product.retired == false %>
+            <%= image_tag(product.photo_url, height: "250", alt: "product image")%>
+            <ul>
+                <li><h3><%= link_to product.name, product_path(product.id) %></h3></li>
+                <li><%= link_to product.user_id, user_path(product.user_id) %></li>
+                <li><%= link_to product.description, product_path(product.id) %></li>
+            </ul>
+        <% end %>
     <% end %>
 </span>
