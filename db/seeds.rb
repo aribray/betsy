@@ -321,7 +321,7 @@ failed_product_saves = []
 products.each do |product|
   new_product = Product.new(product)
   if new_product.save
-    new_product.categories << category_2
+    new_product.categories << category_1
     puts "Saved #{product[:name]} Successfully"
   else
     failed_product_saves << product[:name]
