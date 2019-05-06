@@ -7,9 +7,9 @@ Rails.application.routes.draw do
 
   get "/orders/empty", to: "orders#empty_order", as: "empty_order" # this has to be above resources :orders
 
-  resources :orders, except: [:new] # might not need index
+  resources :orders, except: [:new, :show] # might not need index
   #get "/orders/:id/cust_info", to: "orders#cust_info", as: "cust_info"
-  #get "/cart", to: "orders#cart", as: "cart"
+  get "/cart", to: "orders#cart", as: "cart"
   get "/checkout", to: "orders#checkout", as: "checkout"
   # patch "/orders/:id/submit", to: "orders#submit", as: "submit"
   patch "/submit_order", to: "orders#submit", as: "submit"

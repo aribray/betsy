@@ -65,7 +65,7 @@
 
 <nav>
   <span>
-    <%=link_to "Cancel this order", order_path(@order.id), method: :delete, data: { confirm: "Are you sure you want to cancel this order?" }, class: "btn btn-danger mx-1" %>
+    <%=link_to "Cancel this order", cart_path, method: :delete, data: { confirm: "Are you sure you want to cancel this order?" }, class: "btn btn-danger mx-1" %>
   </span>
 </nav>
 

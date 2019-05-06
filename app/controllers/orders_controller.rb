@@ -2,7 +2,10 @@ class OrdersController < ApplicationController
   before_action :find_order
 
   def show
-    @order = Order.find_by(id: params[:id])
+  end
+
+  def cart
+    @order = @current_order
     if @order.nil?
       flash[:error] = "Could not find order with id: #{params[:id]}"
       redirect_to root_path, status: 302
@@ -13,7 +16,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     if @order.save
       flash[:success] = "Order created successfully"
-      redirect_to order_path(@order.id)
+      redirect_to cart_path
     else
       @order.errors.messages.each do |field, messages|
         flash.now[field] = messages
