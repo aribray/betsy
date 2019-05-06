@@ -31,12 +31,12 @@
     </tbody>
   </table>
 
-  <h4>My Snacks</h4>
+  <h4>My Products</h4>
 
   <table class="table order-details">
     <thead>
       <tr>
-        <th>Snack</th>
+        <th>Product</th>
         <th>Price</th>
         <th>Quantity</th>
         <th>Item Cost</th>
@@ -66,7 +66,6 @@
 <nav>
   <span>
     <%=link_to "Cancel this order", order_path(@order.id), method: :delete, data: { confirm: "Are you sure you want to cancel this order?" }, class: "btn btn-danger mx-1" %>
-    <%=link_to "Confirm this order", confirmation_path, method: :put, class: "btn btn-info mx-1" %>
   </span>
 </nav>
 
