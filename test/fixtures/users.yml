@@ -7,16 +7,15 @@ dee:
   uid: 1
   provider: github
 
-two:
-  name: MyString
-  username: MyString
-  email: MyString
+cooper:
+  name: Cooper Fenway Homet
+  username: Coopie
+  email: coop@kooldogs.net
   uid: 2
-  provider: MyString
+  provider: github
 
 merchant:
   name: elizabeth
   username: holmes
   email: scammer@badblood.com
-  uid: 3
   provider: github
