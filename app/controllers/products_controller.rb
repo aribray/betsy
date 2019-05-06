@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  before_action :find_order
   before_action :find_individual_product, only: %i[show edit update retire]
   before_action :require_login, only: %i[new create edit update retire]
 
@@ -55,11 +56,11 @@ class ProductsController < ApplicationController
 
   def retire
     if @product.nil?
-      flash[:error] = "Could not find this product"
+      flash[:error] = 'Could not find this product'
       redirect_to root_path
       return
     end
-    
+
     if @product.retired == false
       @product.retired = true
     elsif @product.retired == true
