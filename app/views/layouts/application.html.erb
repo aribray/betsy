@@ -9,6 +9,23 @@
   </head>
   <body>
     <header>
+      <% if flash.count > 0 %>
+        <section class="flash">
+          <div class="alert alert-danger">
+          <% flash.each do |name, message| %>
+            <% if message.class == Array %>
+              <ul>
+              <% message.each do |msg| %>
+                <li><%= name %>: <%= msg %> </li>
+              <% end %>
+            <% else %>
+              <%= message %>
+            <% end %>
+            </ul>
+          <% end %>
+          </div>
+        </section>
+      <% end %>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <%= link_to "scAmazon", root_path, class: "navbar-brand" %>
         <li class="nav-item dropdown">
