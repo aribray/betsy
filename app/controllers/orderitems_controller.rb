@@ -32,6 +32,22 @@ class OrderitemsController < ApplicationController
 
   def update; end
 
+  def shipped
+    if @chosen_product.nil?
+      flash[:error] = 'Could not find this product'
+      redirect_to root_path
+      return
+    end
+
+    if @chosen_product.shipped == false
+      @chosen_product.shipped = true
+    else
+      flash[:error] = 'This item has already shipped'
+    end
+    @chosen_product.save
+    redirect_to myorders_path
+  end
+
   def destroy
     @order_item = Orderitem.find_by(id: params[:orderitem_id])
     @order_item.destroy
