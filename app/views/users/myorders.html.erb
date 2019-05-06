@@ -24,7 +24,11 @@
           <td><%= item.quantity%>
           <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
           <td><%= item.created_at %>
-          <td><%= link_to "Shipped" %>
+          <% if item.shipped == false%>
+            <td><%= link_to "Ship", ship_path(item.id), method: :patch %>
+          <%else%>
+            <td>Item Shipped
+          <%end%>
           <td><%= Order.find_by(id: item.order_id).status %>
         </tr>
       <% end %>
