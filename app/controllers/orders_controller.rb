@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   def destroy
     @current_order.destroy
     flash[:status] = :success
-    flash[:result_text] = "Successfully destroyed order ##{@current_order.id}"
+    flash[:success] = "Successfully destroyed order ##{@current_order.id}"
     session[:order_id] = nil
     redirect_to root_path
   end
@@ -42,9 +42,6 @@ class OrdersController < ApplicationController
     if is_successful
       redirect_to confirmation_path
     else
-      # @current_order.errors.messages.each do |field, messages|
-      #   flash.now[field] = messages
-      # end
       render :checkout, status: :bad_request
     end
   end
