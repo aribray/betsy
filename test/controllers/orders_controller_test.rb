@@ -3,7 +3,8 @@ require "test_helper"
 describe OrdersController do
   describe "show" do
     it "should get show" do
-      get orders_path
+      order = orders(:one)
+      get order_path(order.id)
       value(response).must_be :success?
     end
 

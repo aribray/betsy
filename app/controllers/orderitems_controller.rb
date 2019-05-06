@@ -3,6 +3,7 @@
 class OrderitemsController < ApplicationController
   before_action :find_order
   before_action :select_product
+  before_action :require_login, only: [:ship]
 
   def create # should some of this logic be in "update"? not sure how that would work, but this works fine for now
     current_order = @current_order
@@ -31,6 +32,23 @@ class OrderitemsController < ApplicationController
   def edit; end
 
   def update; end
+
+  def ship
+    @orderitem = Orderitem.find_by(id: params[:id])
+    if @orderitem.nil?
+      flash[:error] = 'Could not find this product'
+      redirect_to root_path
+      return
+    end
+
+    if @orderitem.shipped == false
+      @orderitem.shipped = true
+    else
+      flash[:error] = 'This item has already shipped'
+    end
+    @orderitem.save
+    redirect_to myorders_path
+  end
 
   def destroy
     @order_item = Orderitem.find_by(id: params[:orderitem_id])

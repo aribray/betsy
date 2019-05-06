@@ -1,5 +1,5 @@
-
 <h1>Account Details for <%=@user.username%></h1>
+
 <p>Find me in app/views/users/account.html.erb</p>
 
 <p><i>~this page will show the logged in users' merchant dashboard~</i></p>
@@ -7,7 +7,7 @@
 <nav>
   <%= link_to "Create New Category", new_category_path %>
   <%= link_to "Create New Product", new_product_path%>
-  <%= link_to "My Orders"%>
+  <%= link_to "View Related Orders", myorders_path %>
 </nav>
 
     <table class="table">
