@@ -1,4 +1,40 @@
-<h1>Orders#edit</h1>
-<p>Find me in app/views/orders/edit.html.erb</p>
+<h3>Checkout</h3>
 
-<p><i>~this page will show a form to edit a cart/order~</i></p>
+<section>
+  <%= form_with model: @order do |f| %>
+
+  <div class="form-group">
+    <%= f.label 'Credit Card Name' %>
+    <%= f.text_field :cc_name, class: "form-control" %>
+  </div>
+
+  <div class="form_group">
+    <%= f.label 'Email Address' %>
+    <%= f.text_field :email, type: 'email', class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Address" %>
+    <%= f.text_field :address, placeholder: "ex. 1234 Snackelicious Dr. Yummy, WA 12345", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label 'Credit Card Number' %>
+    <%= f.text_field :cc_num, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label 'Billing Zip Code' %>
+    <%= f.text_field :zipcode, class: "form-control"  %>
+  </div>
+
+  <div class="form-group cvv">
+    <%= f.label 'cvv' %>
+    <%= f.text_field :cvv, class: "form-control cvv"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Review Order', class: "btn btn-info" %>
+  </div>
+  <% end %>
+</section>
