@@ -7,11 +7,14 @@ Rails.application.routes.draw do
 
   get "/orders/empty", to: "orders#empty_order", as: "empty_order" # this has to be above resources :orders
 
-  resources :orders, except: [:new] # might not need index
-  # get "/orders/cust_info", to: "orders#cust_info", as: "cust_info"
-  patch "/orders/submit", to: "orders#submit", as: "submit"
-  put "/orders/confirmation", to: "orders#confirmation", as: "confirmation"
-  post "orders/:id/edit", to: "orders#summary", as: "summary"
+  resources :orders, except: [:new, :show] # might not need index
+
+  get "/cart", to: "orders#cart", as: "cart"
+  get "/checkout", to: "orders#checkout", as: "checkout"
+
+  patch "/submit_order", to: "orders#submit", as: "submit"
+
+  get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   resources :orderitems, only: [:create, :edit, :update, :destroy] # clarify this more later #added create
   patch "orderitems/:id/ship", to: "orderitems#ship", as: "ship"
