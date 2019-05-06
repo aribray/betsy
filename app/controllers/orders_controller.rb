@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :find_order
 
   def show
+    @order = @current_order
   end
 
   def cart
@@ -15,7 +16,6 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new
     if @order.save
-      flash[:success] = "Order created successfully"
       redirect_to cart_path
     else
       @order.errors.messages.each do |field, messages|
