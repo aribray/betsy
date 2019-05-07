@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   end
 
   def login
-    auth_hash = request.env["omniauth.auth"]
+    auth_hash = request.env['omniauth.auth']
 
-    user = User.find_by(uid: auth_hash[:uid], provider: "github")
+    user = User.find_by(uid: auth_hash[:uid], provider: 'github')
     if user
       flash[:success] = "Logged in as returning user #{user.name}"
     else
@@ -31,12 +31,12 @@ class UsersController < ApplicationController
     end
 
     session[:user_id] = user.id
-    return redirect_to root_path
+    redirect_to root_path
   end
 
   def logout
     session[:user_id] = nil
-    flash[:success] = "Successfully logged out!"
+    flash[:success] = 'Successfully logged out!'
     redirect_to root_path
   end
 
