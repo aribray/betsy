@@ -1,8 +1,6 @@
 <h1>Orders associated with <%=@user.username%></h1>
 
 <h2>Total Revenue:<%= number_to_currency(User.total_revenue(@user))%></h2>
-<h2>Revenue from Shipped Products: <%= number_to_currency(User.total_revenue(@user, shipped: true))%></h2>
-<h2>Revenue from Not Shipped Products: <%= number_to_currency(User.total_revenue(@user, shipped: false))%></h2>
 
  <table class="table">
     <thead>

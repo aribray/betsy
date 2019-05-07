@@ -76,12 +76,10 @@ describe User do
     end
   end
 
-  describe "total revenue" do
-    it "returns an integer" do
+  describe 'total revenue' do
+    it 'returns an integer' do
       total = User.total_revenue(user)
-
       expect(total).must_be_kind_of Integer
     end
-
   end
 end
