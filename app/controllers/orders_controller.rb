@@ -13,8 +13,10 @@ class OrdersController < ApplicationController
 
   def cart
     @order = @current_order
-    if @order.nil?
-      redirect_to root_path, status: 302
+
+    if @order.orderitems == []
+      session[:order_id] = nil
+      redirect_to empty_order_path
     end
   end
 
