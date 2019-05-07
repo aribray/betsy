@@ -32,7 +32,6 @@ class User < ApplicationRecord
   def self.orderitems_filter(user, shipped: '*')
     orderitems = shipped == '*' ? user.orderitems : user.orderitems.where(shipped: shipped)
 
-
     orderitems
   end
 end
