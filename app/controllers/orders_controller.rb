@@ -67,6 +67,10 @@ class OrdersController < ApplicationController
     end
     @order.status = :paid
     session[:order_id] = nil
+    @order.orderitems.each do |order_item|
+      order_item.product.quantity -= order_item.quantity
+      order_item.product.save
+    end
   end
 
   def empty_order; end
