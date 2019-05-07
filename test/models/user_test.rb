@@ -79,7 +79,23 @@ describe User do
   describe 'total revenue' do
     it 'returns an integer' do
       total = User.total_revenue(user)
-      expect(total).must_be_kind_of Integer
+      expect(total).must_be_kind_of Money
+    end
+
+    it 'returns total revenue of all orderitems as default' do
+      total = User.total_revenue(user)
+      expect(total.cents).must_equal 188
+    end
+
+    it 'returns the total revenue of a passed in parameter' do
+      item = user.orderitems.first
+      item.shipped = 'true'
+      item.save
+      total = User.total_revenue(user, shipped: 'true')
+      expect(total.cents).must_equal 10
+
+      total = User.total_revenue(user, shipped: 'false')
+      expect(total.cents).must_equal 178
     end
   end
 end

@@ -5,6 +5,7 @@ turtleneck:
   description: This is a turtleneck a la Elizabeth Holmes.
   name: Black Turtleneck
   price: 178
+  quantity: 5
   user: dee
 
 two:
@@ -12,4 +13,13 @@ two:
   description: MyString
   name: MyString
   price: 1
+  quantity: 5
   user: cooper
+
+three:
+  photo_url: https://via.placeholder.com/150
+  description: MyString
+  name: MyString
+  price: 10
+  quantity: 5
+  user: dee

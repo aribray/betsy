@@ -20,20 +20,19 @@ class User < ApplicationRecord
     user
   end
 
-  # this method works for all orderitems. having trouble filtering by status
-  def self.total_revenue(user)
+  def self.total_revenue(user, shipped: '*')
     total = 0
-    # if shipped == true
-    #   orderitems = user.orderitems.where(shipped: shipped)
-    #   raise
-    #   orderitems.each do |item|
-    #     total += Product.find_by(id: item.product_id).price * item.quantity
-    #   end
-    # else
-    # end
-      user.orderitems.each do |item|
-        total += Product.find_by(id: item.product_id).price * item.quantity
-      end
+
+    orderitems_filter(user, shipped: shipped).each do |item|
+      total += Product.find_by(id: item.product_id).price * item.quantity
+    end
     total
+  end
+
+  def self.orderitems_filter(user, shipped: '*')
+    orderitems = shipped == '*' ? user.orderitems : user.orderitems.where(shipped: shipped)
+
+
+    orderitems
   end
 end
