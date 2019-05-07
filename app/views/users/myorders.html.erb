@@ -1,7 +1,6 @@
-<h1>Users#myorders</h1>
-<p>Find me in app/views/users/myorders.html.erb</p>
+<h1>Orders associated with <%=@user.username%></h1>
 
-<p><i>~this page will show a list of orders associated with a logged in merchant, if we want this to be its own page~</i></p>
+<h2>Total Revenue:<%= number_to_currency(User.total_revenue(@user))%></h2>
 
  <table class="table">
     <thead>
