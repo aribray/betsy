@@ -9,9 +9,9 @@ one:
   zipcode: 98122
 
 two:
-  email: MyString
-  address: MyString
-  cc_name: MyString
-  cc_number: 1
-  cvv: 1
-  zipcode: 1
+  email: nil
+  address: nil
+  cc_name: nil
+  cc_number: nil
+  cvv: nil
+  zipcode: nil

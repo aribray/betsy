@@ -107,8 +107,6 @@ describe ProductsController do
         expect do
           post products_path, params: test_input
         end.wont_change "Product.count"
-
-        expect(flash[:name]).must_equal ["can't be blank"]
         must_respond_with :bad_request
       end
     end

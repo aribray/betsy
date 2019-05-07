@@ -1,3 +1,4 @@
+
 class OrdersController < ApplicationController
   before_action :find_order
 
@@ -27,7 +28,6 @@ class OrdersController < ApplicationController
       end
       render :new, status: :bad_request
     end
-    # set session[:order_id]?
   end
 
   def destroy
@@ -43,6 +43,10 @@ class OrdersController < ApplicationController
   def update
   end
 
+  def checkout
+    @order = @current_order
+  end
+
   def submit
     is_successful = @current_order.update(order_params)
     if is_successful
@@ -52,15 +56,17 @@ class OrdersController < ApplicationController
     end
   end
 
-  def checkout
-    @order = @current_order
-  end
-
   def confirmation
     @order = @current_order
+    if @current_order.attributes.values.include?(nil)
+      redirect_to checkout_path
+      # flush out this validation to show specific errors
+      flash[:error] = "Please enter your info into all fields."
+    end
+    @order.status = :paid
+    session[:order_id] = nil
   end
 
-  # This is so there can be a "cart" even when there's no order started
   def empty_order; end
 
   def order_params

@@ -8,8 +8,8 @@ turtleneck:
   user: dee
 
 two:
-  photo_url: MyString
+  photo_url: https://via.placeholder.com/150
   description: MyString
   name: MyString
   price: 1
-  user: two
+  user: cooper
