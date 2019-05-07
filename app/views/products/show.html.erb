@@ -6,7 +6,16 @@
 <p>quantity in stock: <%= @product.quantity %></p>
 <p>price: $<%= @product.price %></p>
 
-<%= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>
+<%= form_with model: @orderitems, class: "quantity_form", url: orderitems_path, method: :post do |f| %>
+
+  <%= f.label :quantity %>
+  <%= f.select :quantity, (1..@product.quantity)%>
+  <%= hidden_field_tag "product_id", "#{@product.id}" %>
+
+  <%= f.submit "Add to Cart", class: "submit-button" %>
+
+<% end %>
+<%#= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>
 
 <table class="table">
     <thead>

@@ -13,8 +13,10 @@ class OrdersController < ApplicationController
 
   def cart
     @order = @current_order
-    if @order.nil?
-      redirect_to root_path, status: 302
+
+    if @order.orderitems == []
+      session[:order_id] = nil
+      redirect_to empty_order_path
     end
   end
 
@@ -65,6 +67,10 @@ class OrdersController < ApplicationController
     end
     @order.status = :paid
     session[:order_id] = nil
+    @order.orderitems.each do |order_item|
+      order_item.product.quantity -= order_item.quantity
+      order_item.product.save
+    end
   end
 
   def empty_order; end
