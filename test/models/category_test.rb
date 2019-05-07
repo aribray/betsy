@@ -53,7 +53,7 @@ describe Category do
       expect(another_category.products.length).must_equal 2
     end
 
-    it "can belong to many products" do
+    it "can have many categories and belongs to a product" do
       category_two = categories(:two)
       category_two.products << product
       category_two.save
