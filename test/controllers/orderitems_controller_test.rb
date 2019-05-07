@@ -7,24 +7,30 @@ describe OrderitemsController do
   describe "create" do
     it "will save a new orderitem and redirect to cart if given valid inputs and that orderitem doesn't already exist" do
       product_id = products(:turtleneck).id
-      quantity = 1
+
+      orderitem_quantity = 7
 
       test_input = {
         "product_id": product_id,
+        "quantity": orderitem_quantity,
       }
 
       expect do
         post orderitems_path, params: test_input
       end.must_change "Orderitem.count", 1
 
+      # expect(Orderitem.last).must_be_kind_of Orderitem
+      # expect(Orderitem.all.last.quantity).must_equal orderitem_quantity
+
       order_id = Order.last.id
 
       new_orderitem = Orderitem.find_by(order_id: order_id, product_id: product_id)
 
-      expect(new_orderitem).wont_be_nil
+      expect(new_orderitem).must_be_kind_of Orderitem
+
       expect(new_orderitem.order_id).must_equal order_id
       expect(new_orderitem.product_id).must_equal product_id
-      expect(new_orderitem.quantity).must_equal quantity
+      expect(new_orderitem.quantity).must_equal orderitem_quantity
 
       must_respond_with :redirect
       must_redirect_to cart_path
@@ -36,6 +42,7 @@ describe OrderitemsController do
 
       test_input = {
         "product_id": product_id,
+        "quantity": 2,
       }
 
       expect do

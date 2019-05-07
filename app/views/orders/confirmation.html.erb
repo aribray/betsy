@@ -46,7 +46,7 @@
           <%= link_to item.product.name, product_path(item.product)  %>
         </td>
         <td>
-          <%= number_to_currency(item.product.price) %>
+          $<%=item.product.price %>
         </td>
         <td>
           <%= item.quantity %>

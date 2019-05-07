@@ -1,6 +1,8 @@
-<h1>Orders associated with <%=@user.username%></h1>
+<h2>Orders associated with <%=@user.username%></h2>
 
-<h2>Total Revenue:<%= number_to_currency(User.total_revenue(@user))%></h2>
+<h3>Total Revenue: $<%= User.total_revenue(@user)%></h3>
+<h3>Shipped Products Revenue: $<%= User.total_revenue(@user, shipped: "true")%></h3>
+<h3>Pending Products Revenue: $<%= User.total_revenue(@user, shipped: "false")%></h3>
 
  <table class="table">
     <thead>
