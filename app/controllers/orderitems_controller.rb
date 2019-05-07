@@ -29,6 +29,7 @@ class OrderitemsController < ApplicationController
       # figure out what we want to do here later
       redirect_to root_path
     end
+    return order_item
   end
 
   def edit; end

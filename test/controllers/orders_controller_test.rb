@@ -33,32 +33,6 @@ describe OrdersController do
   end
 
   describe "confirmation" do
-    it "if given valid params, changes status to paid" do
-      #redirects to confirmation and returns success
-      # input_cc_name = "Divine"
-      # input_cc_number = 1234556
-      # input_cvv = 123
-      # input_expiration_date = 1220
-      # input_address = "555 Scammer Lane"
-      # input_zipcode = 98105
-      # input_email = "divine@scams.net"
-      # update_input = {
-      #   "order": {
-      #     cc_name: input_cc_name,
-      #     cc_number: input_cc_number,
-      #     cvv: input_cvv,
-      #     address: input_address,
-      #     zipcode: input_zipcode,
-      #     email: input_email,
-      #   },
-      # }
-
-      # get confirmation_path, params: update_input
-
-      # expect(@current_order.cc_name).must_equal "Divine"
-      # expect(@current_order.status).must_equal :paid
-      # must_respond_with :success
-    end
     # it "should get confirmation page" do
     #   get confirmation_path
 
@@ -91,29 +65,33 @@ describe OrdersController do
   end
 
   describe "submit" do
-    it "will give a 400 error with invalid params" do
-      # input_cc_name = "Divine"
-      # input_cc_number = 1234556
-      # input_cvv = nil
-      # input_expiration_date = 1220
-      # input_address = "555 Scammer Lane"
-      # input_zipcode = 98105
-      # input_email = "divine@scams.net"
-      # update_input = {
-      #   "order": {
-      #     cc_name: input_cc_name,
-      #     cc_number: input_cc_number,
-      #     cvv: input_cvv,
-      #     address: input_address,
-      #     zipcode: input_zipcode,
-      #     email: input_email,
-      #   },
-      # }
-      # expect do
-      #   patch submit_path(@current_order.id), params: update_input
-      # end.wont_change "Order.count"
-      # must_respond_with :bad_request
-      # expect(@current_order.status).must_equal :paid
+    before do
+      @current_order = create_cart
+    end
+    it "updates order data" do
+      input_cc_name = "Divine"
+      input_cc_number = 1234556
+      input_cvv = 123
+      input_expiration_date = 1220
+      input_address = "555 Scammer Lane"
+      input_zipcode = 98105
+      input_email = "divine@scams.net"
+      update_input = {
+        "order": {
+          cc_name: input_cc_name,
+          cc_number: input_cc_number,
+          cvv: input_cvv,
+          address: input_address,
+          zipcode: input_zipcode,
+          email: input_email,
+        },
+      }
+      expect do
+        patch submit_path, params: update_input
+      end.wont_change "Order.count"
+      @current_order.reload
+      expect(@current_order.cc_name).must_equal "Divine"
+      must_respond_with :redirect
     end
   end
 
