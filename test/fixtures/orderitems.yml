@@ -15,4 +15,9 @@ two:
   product: two
   order: two
 
+three:
+  quantity: 1
+  product: three
+  order: one
+
 

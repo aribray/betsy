@@ -36,7 +36,7 @@ describe Category do
       Product.create(name: "new amazing product", user: user, price: 10)
     }
 
-    it "has many products" do
+    it "has many and belongs to products" do
       category.products << product
       category.save
 
@@ -53,7 +53,23 @@ describe Category do
       expect(another_category.products.length).must_equal 2
     end
 
-    it "can belong to many products" do
+    it "can have many products for 1 category" do
+      category.products << product
+      category.save
+
+      test_category = Category.find_by(id: category.id)
+
+      expect(test_category.products.length).must_equal 1
+
+      category.products << new_product
+      category.save
+
+      test_category = Category.find_by(id: category.id)
+
+      expect(test_category.products.length).must_equal 2
+    end
+
+    it "can have many categories for 1 product" do
       category_two = categories(:two)
       category_two.products << product
       category_two.save
