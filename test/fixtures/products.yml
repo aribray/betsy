@@ -7,11 +7,12 @@ turtleneck:
   price: 178
   quantity: 5
   user: dee
+  quantity: 20
 
 two:
   photo_url: https://via.placeholder.com/150
-  description: MyString
-  name: MyString
+  description: This is a description.
+  name: This Is A Name
   price: 1
   quantity: 5
   user: cooper
@@ -23,3 +24,5 @@ three:
   price: 10
   quantity: 5
   user: dee
+
+

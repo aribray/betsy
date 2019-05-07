@@ -28,6 +28,10 @@ describe OrdersController do
     end
   end
 
+  describe "cart" do
+    # nominal and edge cases (if session[:id] or if not)
+  end
+
   describe "confirmation" do
     it "if given valid params, changes status to paid" do
       #redirects to confirmation and returns success
@@ -125,5 +129,7 @@ describe OrdersController do
       get empty_order_path
       value(response).must_be :success?
     end
+
+    # add edge cases
   end
 end
