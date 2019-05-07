@@ -1,0 +1,16 @@
+<h2>Order #<%= @order.id %></h2>
+
+<h5>Name</h5>
+<p><%= @order.cc_name %></p>
+<h5>Email address</h5>
+<p><%= @order.email %></p>
+<h5>Mailing address</h5>
+<p><%= @order.address %></p>
+<h5>Last 4 digits of CC</h5>
+<p><%= @order.cc_number.to_s[-4..-1].to_i %></p>
+<h5>CC expiration date</h5>
+<p><%= @order.cc_expiration %></p>
+
+
+<h5>CVV</h5>
+<p><%= @order.cvv %></p>
