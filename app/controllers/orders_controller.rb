@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     # raise
     if @order.nil?
       flash[:failure] = "That order doesn't exist"
-      redirect_to root_path, status: 302
+      redirect_to root_path, status: :not_found
     end
   end
 
