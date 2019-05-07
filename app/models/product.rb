@@ -17,10 +17,10 @@ class Product < ApplicationRecord
   #             converter: proc { |value| Money.new(value) }
 
   def average_review
-    if reviews.average(:rating).nil?
+    if self.reviews.average(:rating).nil?
       "not reviewed yet!"
     else
-      reviews.average(:rating)
+      return self.reviews.average(:rating).round(1)
     end
   end
 end
