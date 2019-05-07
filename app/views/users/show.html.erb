@@ -1,8 +1,8 @@
-<h1>Products Sold by <%=@user.username%></h1>
+<h2>Products Sold by <%=@user.username%></h2>
 
 <% @user.products.each do |product| %>
   <% if product.retired == false%>
-    <ul>
+    <ul class="product_list">
       <li>
         <%=image_tag(product.photo_url)%>    
       </li>
@@ -13,7 +13,7 @@
         <%= product.description%>
       </li>
       <li>
-        <%= number_to_currency(product.price)%>
+        $<%= product.price%>
       </li>
       <li>
         <%= product.quantity%>

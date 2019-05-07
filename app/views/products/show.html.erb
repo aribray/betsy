@@ -4,7 +4,7 @@
 <p>average rating: <%= @product.average_review %>
 <p>description: <%= @product.description %></p>
 <p>quantity in stock: <%= @product.quantity %></p>
-<p>price: <%= @product.price %></p>
+<p>price: $<%= @product.price %></p>
 
 <%= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>
 
