@@ -2,13 +2,17 @@ class OrdersController < ApplicationController
   before_action :find_order
 
   def show
-    @order = @current_order
+    @order = Order.find_by(id: params[:id])
+    # raise
+    if @order.nil?
+      flash[:failure] = "That order doesn't exist"
+      redirect_to root_path, status: :not_found
+    end
   end
 
   def cart
     @order = @current_order
     if @order.nil?
-      flash[:error] = "Could not find order with id: #{params[:id]}"
       redirect_to root_path, status: 302
     end
   end
@@ -28,7 +32,6 @@ class OrdersController < ApplicationController
 
   def destroy
     @current_order.destroy
-    flash[:status] = :success
     flash[:success] = "Successfully destroyed order ##{@current_order.id}"
     session[:order_id] = nil
     redirect_to root_path
@@ -61,6 +64,6 @@ class OrdersController < ApplicationController
   def empty_order; end
 
   def order_params
-    params.require(:order).permit(:address, :email, :uid, :cc_name, :cc_number, :zipcode)
+    params.require(:order).permit(:address, :email, :uid, :cc_name, :cc_number, :zipcode, :cvv, :cc_expiration)
   end
 end
