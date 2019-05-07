@@ -8,7 +8,9 @@ require "minitest/rails"
 require "minitest/reporters" # for Colorized output
 #  For colorful output!
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  add_filter %r{^/test/}
+end
 
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
