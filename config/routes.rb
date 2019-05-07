@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get "/orders/empty", to: "orders#empty_order", as: "empty_order" # this has to be above resources :orders
 
-  resources :orders, except: [:new, :show] # might not need index
+  resources :orders, except: [:new] # might not need index
 
   get "/cart", to: "orders#cart", as: "cart"
   get "/checkout", to: "orders#checkout", as: "checkout"
