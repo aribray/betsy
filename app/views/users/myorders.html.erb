@@ -1,6 +1,6 @@
-<h1>Orders associated with <%=@user.username%></h1>
+<h2>Orders associated with <%=@user.username%></h2>
 
-<h2>Total Revenue:<%= number_to_currency(User.total_revenue(@user))%></h2>
+<h2>Total Revenue:$<%= User.total_revenue(@user)%></h2>
 
  <table class="table">
     <thead>

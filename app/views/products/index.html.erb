@@ -1,4 +1,4 @@
-<h1>All Products</h1>
+<h2>All Products</h1>
 
 <span>
     <% @products.each do |product| %>
@@ -6,7 +6,7 @@
             <%= image_tag(product.photo_url, height: "250", alt: "product image")%>
             <ul>
                 <li><h3><%= link_to product.name, product_path(product.id) %></h3></li>
-                <li><%= link_to product.user_id, user_path(product.user_id) %></li>
+                <li><%= link_to user = User.find_by(id: product.user_id).name, user_path(product.user_id) %></li>
                 <li><%= link_to product.description, product_path(product.id) %></li>
             </ul>
         <% end %>

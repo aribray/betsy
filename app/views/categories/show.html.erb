@@ -1,10 +1,10 @@
-<h1>Products in <%=@category.name%> Category</h1>
+<h2>Products in <%=@category.name%> Category</h2>
 
 <% @category.products.each do |product| %>
   <% if product.retired == false%>
     <ul>
       <li>
-        <%=image_tag(product.photo_url)%>    
+        <%=image_tag(product.photo_url, height: "250", alt: "product image")%>    
       </li>
       <li>
         <h3><%= link_to product.name, product_path(product.id) %></h3>
@@ -13,7 +13,7 @@
         <%= product.description%>
       </li>
       <li>
-        <%= number_to_currency(product.price)%>
+        $<%= product.price%>
       </li>
       <li>
         <%= product.quantity%>
