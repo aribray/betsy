@@ -4,7 +4,7 @@
   <% if product.retired == false%>
     <ul class="product_list">
       <li>
-        <%=image_tag(product.photo_url)%>    
+        <%=image_tag(product.photo_url, height: "250", alt: "product image")%>    
       </li>
       <li>
         <h3><%= link_to product.name, product_path(product.id) %></h3>

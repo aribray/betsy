@@ -1,4 +1,4 @@
-<h1>Account Details for <%=@user.username%></h1>
+<h2>Account Details for <%=@user.username%></h2>
 
 <p>Find me in app/views/users/account.html.erb</p>
 
@@ -26,7 +26,7 @@
       <tr>
         <th scope="row"><%= product.name %></th>
         <td><%= product.description%>
-        <td><%= number_to_currency(product.price)%>
+        <td>$<%= product.price%>
         <td><%= product.quantity%>
         <td><%= link_to "Edit Product", edit_product_path(product.id)%>
         <% if product.retired == false%>
