@@ -14,12 +14,12 @@
   <%= form_with model: @order, url: submit_path, method: :patch do |f| %>
 
   <div class="form-group">
-    <%= f.label 'Credit Card Name' %>
+    <%= f.label "Credit Card Name" %>
     <%= f.text_field :cc_name, class: "form-control" %>
   </div>
 
   <div class="form_group">
-    <%= f.label 'Email Address' %>
+    <%= f.label "Email Address" %>
     <%= f.text_field :email, type: 'email', class: "form-control" %>
   </div>
 
@@ -29,22 +29,27 @@
   </div>
 
   <div class="form-group">
-    <%= f.label 'Credit Card Number' %>
+    <%= f.label "Credit Card Number" %>
     <%= f.text_field :cc_number, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label 'Billing Zip Code' %>
+    <%= f.label "Billing Zip Code" %>
     <%= f.text_field :zipcode, class: "form-control"  %>
   </div>
 
   <div class="form-group">
-    <%= f.label 'cvv' %>
+    <%= f.label "CVV" %>
     <%= f.text_field :cvv, class: "form-control"  %>
   </div>
 
   <div class="form-group">
-    <%= f.submit 'Confirm Order', class: "btn btn-info" %>
+    <%= f.label "Expiration Date" %>
+    <%= f.text_field :cc_expiration, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Confirm Order", class: "btn btn-info" %>
   </div>
   <% end %>
 </section>

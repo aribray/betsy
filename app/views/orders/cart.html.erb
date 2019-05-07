@@ -1,0 +1,28 @@
+<h1>Shopping Cart</h1>
+<p>Find me in app/views/orders/cart.html.erb</p>
+
+<p>We'll want to add functionality to edit quantity</p>
+<table class="table">
+  <thead>
+    <th scope="col"></th>
+    <th scope="col">Product</th>
+    <th scope="col">Quantity</th>
+    <th scope="col"></th>
+  </thead>
+  <tbody>
+    <% @current_order.orderitems.each do |orderitem| %>
+      <tr>
+        <td><%= image_tag(orderitem.product.photo_url, size: "100x100", alt: "product image")%></td>
+        <td><%= orderitem.product.name %></td>
+        <td><%= orderitem.quantity %></td>
+        <td><%= button_to "Remove", orderitem_path(orderitem.id), method: :delete, params: {orderitem_id: orderitem.id}, class: "btn btn-secondary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= button_to "Checkout", checkout_path, method: :get, class: "btn btn-primary" %>
+
+
+
+<%# f.select :quantity, options_for_select([0...orderitem.product.quantity])%>

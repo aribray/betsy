@@ -1,7 +1,6 @@
-<h1>Users#myorders</h1>
-<p>Find me in app/views/users/myorders.html.erb</p>
+<h1>Orders associated with <%=@user.username%></h1>
 
-<p><i>~this page will show a list of orders associated with a logged in merchant, if we want this to be its own page~</i></p>
+<h2>Total Revenue:<%= number_to_currency(User.total_revenue(@user))%></h2>
 
  <table class="table">
     <thead>
@@ -19,7 +18,7 @@
     <% if !@user.orderitems.nil? %>
       <% @user.orderitems.each do |item| %>
         <tr>
-          <td><%= link_to Order.find_by(id: item.order_id).id, order_path(item.order_id) %>
+          <td><%= link_to Order.find_by(id: item.order_id).id, cart_path %>
           <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
           <td><%= item.quantity%>
           <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>

@@ -8,22 +8,16 @@ describe OrdersController do
       value(response).must_be :success?
     end
 
-    it "should show a list of products in cart" do
-      order = orders(:one)
-      get order_path(order.id)
-      must_respond_with :success
+    it "will respond with 404 if the order is not found" do
+      invalid_order_id = -1
+
+      get order_path(invalid_order_id)
+      must_respond_with :not_found
     end
 
-    it "will redirect if we try to view products from an invalid user" do
-      get order_path(-1)
-
-      must_respond_with :redirect
-      expect(flash[:error]).must_equal "Could not find order with id: -1"
-    end
-
-    it "can't view another user's cart" do
-      # implement this later, if there's time
-    end
+    # it "can't view another user's cart" do
+    #   # implement this later, if there's time
+    # end
   end
 
   describe "checkout" do
