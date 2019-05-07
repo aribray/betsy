@@ -15,7 +15,7 @@ class Product < ApplicationRecord
     if self.reviews.average(:rating) == nil
       return "not reviewed yet!"
     else
-      return self.reviews.average(:rating)
+      return self.reviews.average(:rating).round(1)
     end
   end
 end
