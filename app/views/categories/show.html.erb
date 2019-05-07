@@ -1,5 +1,4 @@
-<h2>Products in <%=@category.name%> Category</h2>
-
+<%if false%>
 <% @category.products.each do |product| %>
   <% if product.retired == false%>
     <ul>
@@ -21,5 +20,20 @@
     </ul>
   <%end%>
 <%end%>
+<%end%>
 
 
+<h2>Products in <%=@category.name%> Category</h2>
+<span class="product-index">
+  <% @category.products.each do |product| %>
+    <% if product.retired == false %>
+      <ul class="product-item">
+        <li><%= link_to image_tag(product.photo_url, height: "250", alt: "product image"), product_path(product.id)%></li>
+        <li>
+          <p class="product-name"><%= link_to product.name, product_path(product.id) %></p>
+        </li>
+        <li><p class="product-description"><%= product.description %></p></li>
+      </ul>
+    <% end %>
+  <% end %>
+</span>

@@ -21,6 +21,9 @@
         <th scope="row"><%= review.rating %></th>
         <td><%= review.description%>
       </tr>
+      
     <% end %>
 
 <%= render "/reviews/new"%>
+
+        <%# <li>by: <%= link_to user = User.find_by(id: product.user_id).name, user_path(product.user_id) %></li> %>

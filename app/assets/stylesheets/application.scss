@@ -21,7 +21,71 @@ nav li {
   list-style-type: none;
 }
 
+main li {
+  list-style-type: none;
+}
+
 .intro {
   text-align: center;
   padding-top: 200px;
+}
+
+main {
+  padding: 50px;
+}
+
+main a {
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+main a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  text-align: center;
+}
+
+.product-index {
+  display: flex;
+  flex-wrap: wrap;
+  // // align-content: center;
+  // justify-content: center;
+  // align-items: center;
+  // justify-items: center;
+  // flex-direction: column;
+  justify-content: space-around;
+}
+
+.product-item {
+  display: block;
+  width: 400px;
+  // min-height: 400px;
+  margin: 20px;
+  padding: 20px;
+  // border: .5px solid grey;
+}
+
+.product-item > *{
+  text-align: center;
+  padding: 5px;
+}
+
+.product-item img {
+}
+
+.product-item:hover {
+  background-color: lightgrey;
+}
+
+.product-description {
+  font-style: italic;
+  color: grey;
+}
+
+.product-name {
+  margin: 0px;
 }
