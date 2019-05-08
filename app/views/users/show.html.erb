@@ -1,45 +1,28 @@
-<%if false%>
-<h2>Products Sold by <%=@user.username%></h2>
-
-<% @user.products.each do |product| %>
-  <% if product.retired == false%>
-    <ul class="product_list">
-      <li>
-        <%=image_tag(product.photo_url, height: "250", alt: "product image")%>    
-      </li>
-      <li>
-        <h3><%= link_to product.name, product_path(product.id) %></h3>
-      </li>
-      <li>
-        <%= product.description%>
-      </li>
-      <li>
-        $<%= product.price%>
-      </li>
-      <li>
-        <%= product.quantity%>
-      </li>
-    </ul>
-  <%end%>
-<%end%>
-<%end%>
-
-
-<h2>Products Sold by <span class="emphasize"><%=@user.username%></span></h2>
-<div class="product-index">
-  <% @user.products.each do |product| %>
-    <% if product.retired == false %>
-      <ul class="product-item">
-        <li><%= link_to image_tag(product.photo_url, height: "250", alt: "product image"), product_path(product.id)%></li>
-        <li>
-          <p class="product-name"><%= link_to product.name, product_path(product.id) %></p>
-        </li>
-        <li>$<%= product.price%></li>
-        <li><p class="product-description"><%= product.description %></p></li>
-        <li><p class="product-rating"><%= product.average_review %></p></li>
-      </ul>
+<% if @user.name %>
+  <h2>Products Sold by <span class="emphasize"><%=@user.name%></span></h2>
+<% else %>
+  <h2>Products Sold by <span class="emphasize"><%=@user.username%></span></h2>
+<% end %>
+<% if @user.products.empty? %>
+  <p class="product-none">Sorry, this merchant does not have any products yet.</p>
+<% else %>
+  <div class="product-index">
+    <% @user.products.each do |product| %>
+      <% if product.retired == false %>
+        <ul class="product-item">
+          <li><%= link_to image_tag(product.photo_url, height: "250", alt: "product image"), product_path(product.id)%></li>
+          <li>
+            <p class="product-name"><%= link_to product.name, product_path(product.id) %></p>
+          </li>
+          <li>$<%= product.price%></li>
+          <li>
+            <p class="product-description"><%= product.description %></p>
+          </li>
+          <li>
+            <p class="product-rating"><%= product.average_review %></p>
+          </li>
+        </ul>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
-
-
+  </div>
+<% end %>
