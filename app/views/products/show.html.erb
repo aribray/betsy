@@ -16,7 +16,7 @@
 
 <% end %>
 <%#= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>
-
+<%= render "/reviews/new"%>
 <table class="table">
     <thead>
       <tr>
@@ -32,7 +32,11 @@
       </tr>
       
     <% end %>
+</table>
 
-<%= render "/reviews/new"%>
+<% if false %>
+<%# <li>by: <%= link_to user = User.find_by(id: product.user_id).name, user_path(product.user_id) %></li> %>
+<% end %>
 
-        <%# <li>by: <%= link_to user = User.find_by(id: product.user_id).name, user_path(product.user_id) %></li> %>
+
+
