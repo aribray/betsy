@@ -72,12 +72,13 @@ class OrdersController < ApplicationController
       flash[:error] = "Please enter your zipcode."
       redirect_to checkout_path
     else
-      @order.status = :paid
+      @order.status = "paid"
       session[:order_id] = nil
       @order.orderitems.each do |order_item|
         order_item.product.quantity -= order_item.quantity
         order_item.product.save
       end
+      @order.save
     end
   end
 

@@ -105,8 +105,8 @@ describe OrdersController do
       expect do
         patch submit_path, params: update_input
       end.wont_change "Order.count"
+      patch confirmation_path
       @current_order.reload
-      get confirmation_path
       product = Product.find(@current_order.orderitems.first.product_id)
       must_respond_with :success
       expect(session[:order_id]).must_be_nil
@@ -115,8 +115,7 @@ describe OrdersController do
       expect(@current_order.cc_number).must_equal input_cc_number
       expect(@current_order.cvv).must_equal input_cvv
       expect(@current_order.zipcode).must_equal input_zipcode
-      #expect(@current_order.status).must_equal "paid"
-      # paid status working in code but not test
+      expect(@current_order.status).must_equal "paid"
     end
     it "should redirect if given invalid params" do
       input_cc_name = ""
@@ -140,7 +139,7 @@ describe OrdersController do
       expect do
         patch submit_path(@current_order.id), params: update_input
       end.wont_change "Order.count"
-      get confirmation_path
+      patch confirmation_path
       must_respond_with :redirect
       product = Product.find(@current_order.orderitems.first.product_id)
       expect(product.quantity).must_equal 20
