@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   patch "orderitems/:id/ship", to: "orderitems#ship", as: "ship"
 
   resources :products, except: [:destroy] do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:create]
   end
 
   patch "/products/:id/retire", to: "products#retire", as: "retire"
