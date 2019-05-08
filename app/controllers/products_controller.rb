@@ -87,9 +87,11 @@ class ProductsController < ApplicationController
 
   def split(params)
     categories = []
-    params[:product][:category].reject(&:blank?).each do |category|
-      cat = Category.find_by(id: category)
-      categories << cat
+    if params[:product][:category]
+      params[:product][:category].reject(&:blank?).each do |category|
+        cat = Category.find_by(id: category)
+        categories << cat
+      end
     end
     return categories
   end
