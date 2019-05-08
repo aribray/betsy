@@ -57,4 +57,20 @@ class ActiveSupport::TestCase
 
     return user
   end
+
+  def create_cart(product = nil)
+    product ||= products(:turtleneck)
+
+    product_id = product.id
+    orderitem_quantity = 2
+
+    test_input = {
+      "product_id": product_id,
+      "quantity": orderitem_quantity,
+    }
+    post orderitems_path, params: test_input
+
+    current_order = Order.find_by(id: session[:order_id])
+    return current_order
+  end
 end
