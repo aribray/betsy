@@ -19,9 +19,9 @@ class Product < ApplicationRecord
 
   def average_review
     if reviews.average(:rating).nil?
-      "not reviewed yet!"
+      "not reviewed yet"
     else
-      reviews.average(:rating)
+      return reviews.average(:rating).round(1)
     end
   end
 end

@@ -19,7 +19,7 @@
           <p>Add total price here</p>
         </td>
         <td>
-          <p>Add time order was placed here</p>
+          <p><%= @order.updated_at.to_date %></p>
         </td>
         <td>
           <%= @order.status.capitalize %>

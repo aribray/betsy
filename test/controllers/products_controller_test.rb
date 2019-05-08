@@ -82,7 +82,7 @@ describe ProductsController do
         new_product = Product.find_by(name: input_name)
         expect(new_product).wont_be_nil
         expect(new_product.name).must_equal input_name
-        expect(new_product.price).must_equal input_price
+        expect(new_product.price.cents).must_equal input_price
         expect(new_product.description).must_equal input_description
 
         must_respond_with :redirect

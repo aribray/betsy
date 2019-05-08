@@ -29,13 +29,13 @@
           <% end %>
         </td>
         
-        <td><%= button_to "Remove", orderitem_path(orderitem.id), method: :delete, params: {orderitem_id: orderitem.id}, class: "btn btn-secondary" %></td>
+        <td><%= button_to "Remove", orderitem_path(orderitem.id), method: :delete, params: {orderitem_id: orderitem.id}, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= button_to "Checkout", checkout_path, method: :get, class: "btn btn-primary" %>
+<%= button_to "Checkout", checkout_path, method: :get, class: "btn btn-secondary" %>
 
 
 
