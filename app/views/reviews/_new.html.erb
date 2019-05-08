@@ -14,7 +14,7 @@
 <%end%>
 <main>
 
-  <%= form_with model: @review, :url => product_reviews_path(@product.id)  do |f| %>
+  <%= form_with model: @review, :url => product_reviews_path(@product.id), local: true do |f| %>
 
     <%= f.label :rating %>
     <%= f.select :rating, (1..5) %>

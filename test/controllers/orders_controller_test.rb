@@ -43,6 +43,36 @@ describe OrdersController do
   end
 
   describe "create" do
+    describe "logged in users (same as non-logged in)" do
+      before do
+        perform_login(users(:dee))
+      end
+
+      it "will save a new order and redirect to cart path" do
+        before = Order.count
+        post orders_path
+
+        expect(Order.count).must_equal before + 1
+
+        # expect {
+        #   post orders_path
+        # }.must_change "Order.count", 1
+
+        must_respond_with :redirect
+        must_redirect_to cart_path
+      end
+    end
+
+    describe "non-logged in users (same as logged in)" do
+      it "will save a new order and redirect to cart path" do
+        expect {
+          post orders_path
+        }.must_change "Order.count", 1
+
+        must_respond_with :redirect
+        must_redirect_to cart_path
+      end
+    end
   end
 
   describe "submit" do
@@ -105,7 +135,7 @@ describe OrdersController do
       expect do
         patch submit_path, params: update_input
       end.wont_change "Order.count"
-      patch confirmation_path
+      get confirmation_path
       @current_order.reload
       product = Product.find(@current_order.orderitems.first.product_id)
       must_respond_with :success
@@ -117,14 +147,14 @@ describe OrdersController do
       expect(@current_order.zipcode).must_equal input_zipcode
       expect(@current_order.status).must_equal "paid"
     end
-    it "should redirect if given invalid params" do
+    it "should redirect and flash errors if given invalid params" do
       input_cc_name = ""
-      input_cc_number = 12323434534
-      input_cvv = 123
-      input_expiration_date = 123000
-      input_address = "6007 NE Hawkins Dr."
-      input_zipcode = 12318
-      input_email = "scams@scamfam.bam"
+      input_cc_number = nil
+      input_cvv = nil
+      input_expiration_date = nil
+      input_address = ""
+      input_zipcode = nil
+      input_email = ""
       update_input = {
         "order": {
           cc_name: input_cc_name,
@@ -139,12 +169,26 @@ describe OrdersController do
       expect do
         patch submit_path(@current_order.id), params: update_input
       end.wont_change "Order.count"
-      patch confirmation_path
+      get confirmation_path
       must_respond_with :redirect
       product = Product.find(@current_order.orderitems.first.product_id)
       expect(product.quantity).must_equal 20
       expect(@current_order.status).must_equal "pending"
-      expect(flash[:error]).must_equal "Credit Card Name cannot be blank."
+
+      # copied from orders_controller#confirmation
+      errors = {
+        :cc_name => "Credit Card Name cannot be blank.",
+        :cc_number => "Please enter a valid credit card number.",
+        :cvv => "Please enter a valid CVV.",
+        :cc_expiration => "Please enter a valid credit card expiration date.",
+        :email => "Please enter your email address.",
+        :address => "Please enter your address.",
+        :zipcode => "Please enter your zipcode.",
+      }
+
+      errors.each do |cat, error|
+        expect(flash[:error]).must_include error
+      end
     end
   end
 
