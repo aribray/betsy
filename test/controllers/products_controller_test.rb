@@ -285,4 +285,27 @@ describe ProductsController do
       end
     end
   end
+
+  describe "accepts nested attributes for" do
+    it "accepts nested attributes for categories" do
+      # make a hash with the form params
+      input_photo_url = "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM"
+        input_description = "black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam."
+        input_name = "Iconic Tech Turtleneck"
+        input_price = 9900
+        input_quantity = 20
+        input_user_id = new_merchant.id
+        test_input = {
+          "product": {
+            photo_url: input_photo_url,
+            description: input_description,
+            name: input_name,
+            price: input_price,
+            quantity: input_quantity,
+            user_id: input_user_id,
+          },
+        }
+      
+    end
+  end
 end
