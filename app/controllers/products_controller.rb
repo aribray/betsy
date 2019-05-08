@@ -75,16 +75,13 @@ class ProductsController < ApplicationController
     redirect_to myaccount_path
   end
 
-
   def split(params)
     categories = []
-    if params[:product][:category]
-      params[:product][:category].reject(&:blank?).each do |category|
-        cat = Category.find_by(id: category)
-        categories << cat
-      end
+    params[:product][:category].reject(&:blank?).each do |category|
+      cat = Category.find_by(id: category)
+      categories << cat
     end
-    return categories
+    categories
   end
 
   private
@@ -94,7 +91,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id, :category, categories_attributes: [:categories, :name] )
+    params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id, :category, categories_attributes: %i[categories name])
   end
-
 end
