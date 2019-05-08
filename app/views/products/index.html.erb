@@ -1,5 +1,5 @@
 <h2>All Products</h2>
-<span class="product-index">
+<div class="product-index">
   <% @products.each do |product| %>
     <% if product.retired == false %>
       <ul class="product-item">
@@ -7,8 +7,12 @@
         <li>
           <p class="product-name"><%= link_to product.name, product_path(product.id) %></p>
         </li>
-        <li><p class="product-description"><%= product.description %></p></li>
+        <li>$<%= product.price%></li>
+        <li>
+          <p class="product-description"><%= product.description %></p>
+        </li>
+        <li><p class="product-rating"><%= product.average_review %></p></li>
       </ul>
     <% end %>
   <% end %>
-</span>
+</div>

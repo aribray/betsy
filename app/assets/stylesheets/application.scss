@@ -49,6 +49,19 @@ h2 {
   text-align: center;
 }
 
+header a {
+  color: gray;
+}
+
+header a:hover {
+  color: black;
+}
+
+a.site-title:hover {
+  text-shadow: -4px 4px lightgrey;
+  color: black;
+}
+
 .product-index {
   display: flex;
   flex-wrap: wrap;
@@ -89,3 +102,28 @@ h2 {
 .product-name {
   margin: 0px;
 }
+
+.product-rating {
+  color: white;
+  // display: none;
+}
+
+.product-rating::before {
+  content: "("
+}
+
+.product-rating::after {
+  content: ")"
+}
+
+p {
+  margin: 0px;
+}
+
+.emphasize {
+  font-weight: bold;
+}
+
+// .right-nav {
+//   float: right;
+// }

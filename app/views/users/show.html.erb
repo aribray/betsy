@@ -25,8 +25,8 @@
 <%end%>
 
 
-<h2>Products Sold by <%=@user.username%></h2>
-<span class="product-index">
+<h2>Products Sold by <span class="emphasize"><%=@user.username%></span></h2>
+<div class="product-index">
   <% @user.products.each do |product| %>
     <% if product.retired == false %>
       <ul class="product-item">
@@ -36,9 +36,10 @@
         </li>
         <li>$<%= product.price%></li>
         <li><p class="product-description"><%= product.description %></p></li>
+        <li><p class="product-rating"><%= product.average_review %></p></li>
       </ul>
     <% end %>
   <% end %>
-</span>
+</div>
 
 

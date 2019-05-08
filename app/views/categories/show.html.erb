@@ -23,8 +23,8 @@
 <%end%>
 
 
-<h2>Products in <%=@category.name%> Category</h2>
-<span class="product-index">
+<h2>Products in <span class="emphasize"><%=@category.name%></span> Category</h2>
+<div class="product-index">
   <% @category.products.each do |product| %>
     <% if product.retired == false %>
       <ul class="product-item">
@@ -32,8 +32,10 @@
         <li>
           <p class="product-name"><%= link_to product.name, product_path(product.id) %></p>
         </li>
+        <li>$<%= product.price%></li>
         <li><p class="product-description"><%= product.description %></p></li>
+        <li><p class="product-rating"><%= product.average_review %></p></li>
       </ul>
     <% end %>
   <% end %>
-</span>
+</div>
