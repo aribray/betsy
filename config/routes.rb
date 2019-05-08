@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   patch "/submit_order", to: "orders#submit", as: "submit"
 
-  patch "/confirmation", to: "orders#confirmation", as: "confirmation"
+  get "/confirmation", to: "orders#confirmation", as: "confirmation"
 
   resources :orderitems, only: [:create, :edit, :update, :destroy] # clarify this more later #added create
   patch "orderitems/:id/ship", to: "orderitems#ship", as: "ship"

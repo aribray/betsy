@@ -49,27 +49,48 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = @current_order
+    error = false
+    flash[:error] = []
+    errors = {
+      :cc_name => "Credit Card Name cannot be blank.",
+      :cc_number => "Please enter a valid credit card number.",
+      :cvv => "Please enter a valid CVV.",
+      :cc_expiration => "Please enter a valid credit card expiration date.",
+      :email => "Please enter your email address.",
+      :address => "Please enter your address.",
+      :zipcode => "Please enter your zipcode.",
+    }
+
     if @order.cc_name == ""
-      redirect_to checkout_path
-      flash[:error] = "Credit Card Name cannot be blank."
-    elsif @order.cc_number == nil
-      redirect_to checkout_path
-      flash[:error] = "Please enter a valid credit card number."
-    elsif @order.cvv == nil
-      redirect_to checkout_path
-      flash[:error] = "Please enter a valid CVV."
-    elsif @order.cc_expiration == nil
-      redirect_to checkout_path
-      flash[:error] = "Please enter a valid credit card expiration date."
-    elsif @order.email == ""
-      redirect_to checkout_path
-      flash[:error] = "Please enter your email address."
-    elsif @order.address == ""
-      redirect_to checkout_path
-      flash[:error] = "Please enter your address."
-      redirect_to checkout_path
-    elsif @order.zipcode == nil
-      flash[:error] = "Please enter your zipcode."
+      flash[:error] << errors[:cc_name]
+      error = true
+    end
+    if @order.cc_number == nil
+      flash[:error] << errors[:cc_number]
+      error = true
+    end
+    if @order.cvv == nil
+      flash[:error] << errors[:cvv]
+      error = true
+    end
+    if @order.cc_expiration == nil
+      flash[:error] << errors[:cc_expiration]
+      error = true
+    end
+    if @order.email == ""
+      flash[:error] << errors[:email]
+      error = true
+    end
+    if @order.address == ""
+      flash[:error] << errors[:address]
+      error = true
+    end
+    if @order.zipcode == nil
+      flash[:error] << errors[:zipcode]
+      error = true
+    end
+
+    if error == true
       redirect_to checkout_path
     else
       @order.status = "paid"
