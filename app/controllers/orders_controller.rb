@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    # raise
     if @order.nil?
       flash[:failure] = "That order doesn't exist"
       redirect_to root_path, status: :not_found
@@ -39,37 +38,46 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def checkout
     @order = @current_order
   end
 
   def submit
-    is_successful = @current_order.update(order_params)
-    if is_successful
-      redirect_to confirmation_path
-    else
-      render :checkout, status: :bad_request
-    end
+    @current_order.update(order_params)
+    redirect_to confirmation_path
   end
 
   def confirmation
     @order = @current_order
-    if @current_order.attributes.values.include?(nil)
+    if @order.cc_name == ""
       redirect_to checkout_path
-      # flush out this validation to show specific errors
-      flash[:error] = "Please enter your info into all fields."
-    end
-    @order.status = :paid
-    session[:order_id] = nil
-    @order.orderitems.each do |order_item|
-      order_item.product.quantity -= order_item.quantity
-      order_item.product.save
+      flash[:error] = "Credit Card Name cannot be blank."
+    elsif @order.cc_number == nil
+      redirect_to checkout_path
+      flash[:error] = "Please enter a valid credit card number."
+    elsif @order.cvv == nil
+      redirect_to checkout_path
+      flash[:error] = "Please enter a valid CVV."
+    elsif @order.cc_expiration == nil
+      redirect_to checkout_path
+      flash[:error] = "Please enter a valid credit card expiration date."
+    elsif @order.email == ""
+      redirect_to checkout_path
+      flash[:error] = "Please enter your email address."
+    elsif @order.address == ""
+      redirect_to checkout_path
+      flash[:error] = "Please enter your address."
+      redirect_to checkout_path
+    elsif @order.zipcode == nil
+      flash[:error] = "Please enter your zipcode."
+      redirect_to checkout_path
+    else
+      @order.status = :paid
+      session[:order_id] = nil
+      @order.orderitems.each do |order_item|
+        order_item.product.quantity -= order_item.quantity
+        order_item.product.save
+      end
     end
   end
 
