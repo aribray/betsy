@@ -25,7 +25,11 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    categories = split(params)
+    @product.categories << categories
+
     @product.user_id = @current_user.id if @current_user
+
     if @product.save
       flash[:success] = 'Product added successfully'
       redirect_to product_path(@product.id)
@@ -78,6 +82,15 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id, categories_attributes: [:categories, :name] )
+    params.require(:product).permit(:photo_url, :description, :name, :price, :quantity, :user_id, :category, categories_attributes: [:categories, :name] )
+  end
+
+  def split(params)
+    categories = []
+    params[:product][:category].reject(&:blank?).each do |category|
+      cat = Category.find_by(id: category)
+      categories << cat
+    end
+    return categories
   end
 end
