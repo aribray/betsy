@@ -30,5 +30,48 @@ describe Order do
     end
   end
 
+  describe "subtotal" do
+    it "returns the total of all of the orderitems in this order" do
+      my_order = order
+
+      sum = 0
+      my_order.orderitems.each do |item|
+        sum += item.product.price * item.quantity
+      end
+
+      my_order.subtotal.must_be_kind_of Money
+      my_order.subtotal.must_equal sum
+    end
+  end
+
+  describe "taxes" do
+    it "calculates taxes for the order subtotal" do
+      my_order = order
+
+      sum = 0
+      my_order.orderitems.each do |item|
+        sum += item.product.price * item.quantity
+      end
+
+      desired_output = sum * 0.101
+
+      my_order.taxes.must_equal desired_output
+    end
+  end
+
+  describe "total" do
+    it "calulates the sum plus tax for an order" do
+      my_order = order
+      sum = 0
+      my_order.orderitems.each do |item|
+        sum += item.product.price * item.quantity
+      end
+      sum *= (1 + 0.101)
+
+      my_order.total.must_be_kind_of Money
+      my_order.total.must_equal sum
+    end
+  end
+
   # we might want to test validations for Orders here
 end

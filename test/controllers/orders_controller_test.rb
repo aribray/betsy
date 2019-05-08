@@ -105,7 +105,7 @@ describe OrdersController do
       expect do
         patch submit_path, params: update_input
       end.wont_change "Order.count"
-      patch confirmation_path
+      get confirmation_path
       @current_order.reload
       product = Product.find(@current_order.orderitems.first.product_id)
       must_respond_with :success
@@ -139,7 +139,7 @@ describe OrdersController do
       expect do
         patch submit_path(@current_order.id), params: update_input
       end.wont_change "Order.count"
-      patch confirmation_path
+      get confirmation_path
       must_respond_with :redirect
       product = Product.find(@current_order.orderitems.first.product_id)
       expect(product.quantity).must_equal 20
