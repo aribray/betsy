@@ -43,7 +43,7 @@
     <div class="form-group">
       <%= f.fields_for :categories do |h| %>
         <%= h.label :new_category %>
-        <%=h.text_field :name%>
+        <%=h.text_field :name, :include_blank => false%>
         <%end%>
     </div>
     <div class="form-group">
