@@ -129,8 +129,7 @@ describe Product do
     end
 
     it "when destroyed, will destroy order items" do
-      new_order = orders(:one)
-      new_order.orderitems << orderitems(:one)
+      my_product = product
 
       expect {
         product.destroy
@@ -139,7 +138,7 @@ describe Product do
       expect(find_destroyed_product).must_equal nil
     end
 
-    it "when destroyed, will destroy the reviews" do
+    it "when destroyed, will destroy the review" do
       new_review = reviews(:one)
       product.reviews << new_review
 

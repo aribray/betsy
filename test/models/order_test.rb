@@ -17,6 +17,17 @@ describe Order do
       expect(my_order.length).must_equal 2
       expect(my_order).must_include products(:turtleneck)
     end
+
+    it "will delete an orderitem when destroyed" do
+      my_order = order
+
+      expect {
+        my_order.destroy
+      }.must_change "Orderitem.count", -2
+
+      find_destroyed_order = Order.find_by(id: my_order.id)
+      expect(find_destroyed_order).must_equal nil
+    end
   end
 
   # we might want to test validations for Orders here
