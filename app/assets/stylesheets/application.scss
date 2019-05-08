@@ -40,8 +40,13 @@ main a {
   font-weight: bold;
 }
 
-main a:hover {
+product-index a:hover {
   color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: grey;
   text-decoration: none;
 }
 
@@ -124,6 +129,9 @@ p {
   font-weight: bold;
 }
 
-// .right-nav {
-//   float: right;
-// }
+.product-none {
+  text-align: center;
+  font-style: italic;
+  margin: 50px;
+  color: grey;
+}
