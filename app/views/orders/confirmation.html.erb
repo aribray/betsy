@@ -5,29 +5,6 @@
 
   <h4>Order Summary</h4>
 
-  <table class="table order-info">
-    <thead>
-      <tr>
-        <th>Order Total Amount</th>
-        <th>Purchase Date</th>
-        <th>Current Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <p>Add total price here</p>
-        </td>
-        <td>
-          <p><%= @order.updated_at.to_date %></p>
-        </td>
-        <td>
-          <%= @order.status.capitalize %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
   <h4>My Products</h4>
 
   <table class="table order-details">
@@ -52,13 +29,52 @@
           <%= item.quantity %>
         </td>
         <td>
-          <p>Add subtotal here</p>
+          <p>$<%= item.item_total %></p>
         </td>
       </tr>
       <% end %>
     </tbody>
   </table>
-</section>
+
+  <table class="table order-info">
+    <thead>
+      <tr>
+        <th>Taxes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>$<%= @order.taxes %></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table order-info">
+    <thead>
+      <tr>
+        <th>Order Total Amount</th>
+        <th>Purchase Date</th>
+        <th>Current Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>$<%= @order.total %></p>
+        </td>
+        <td>
+          <p><%= @order.updated_at.to_date %></p>
+        </td>
+        <td>
+          <%= @order.status.capitalize %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  </section>
 
 <nav>
   <span>

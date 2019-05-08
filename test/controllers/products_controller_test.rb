@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "pry"
 
 describe ProductsController do
   let(:existing_product) { products(:turtleneck) }
