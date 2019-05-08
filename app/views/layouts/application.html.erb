@@ -28,49 +28,50 @@
           </div>
         </li>
         <li class="nav-item"><%= link_to "All Products", products_path, class: "nav-link"  %></li>
-      
+        <%# <div class="right-nav"> %>
         <% if @current_user %>
           <li class="nav-item"><%= link_to "My Account", myaccount_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "Log out", logout_path, method: "delete", class: "nav-link"  %></li>
         <% else %>
           <li class="nav-item"><%= link_to "Login with Github", github_login_path, class: "nav-link" %></li>
         <% end %>
-
+        </li>
         <%# This should eventually show whether there's a user logged in or not, once we figure out that logic %>
         <% if session[:order_id] %>
-          <%= button_to "Cart", cart_path, method: :get, class: "btn btn-primary nav-link" %>
+          <%= button_to "Cart", cart_path, method: :get, class: "btn btn-dark nav-link" %>
         <% else %>
-          <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-primary nav-link" %>        
+          <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-dark nav-link" %>
         <% end %>
+        <%# </div>     %>
       </nav>
-       <% if flash.count > 0 %>
+      <% if flash.count > 0 %>
         <section class="flash">
           <% if flash[:failure] %>
             <div class="alert alert-danger" role="alert" >
-          <% elsif flash[:error] %>
-            <div class="alert alert-warning" role="alert" >
-          <% elsif flash[:success] %>
-            <div class="alert alert-success" role="alert" >
-          <% else%>
-            <div class="alert alert-primary" role="alert" >          
-          <% end %>
-          <% flash.each do |name, message| %>
-            <% if message.class == Array %>
-              <ul>
-              <% message.each do |msg| %>
-                <li><%= name %>: <%= msg %> </li>
-              <% end %>
-            <% else %>
-              <%= message %>
+            <% elsif flash[:error] %>
+              <div class="alert alert-warning" role="alert" >
+              <% elsif flash[:success] %>
+                <div class="alert alert-success" role="alert" >
+                <% else%>
+                  <div class="alert alert-primary" role="alert" >
+                  <% end %>
+                  <% flash.each do |name, message| %>
+                    <% if message.class == Array %>
+                      <ul>
+                        <% message.each do |msg| %>
+                          <li><%= name %>: <%= msg %> </li>
+                        <% end %>
+                      <% else %>
+                        <%= message %>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </div>
+              </section>
             <% end %>
-            </ul>
-          <% end %>
-          </div>
-        </section>
-      <% end %>
-    </header>
-    <main>
-      <%= yield %>
-    </main>
-  </body>
-</html>
+          </header>
+          <main>
+            <%= yield %>
+          </main>
+        </body>
+      </html>

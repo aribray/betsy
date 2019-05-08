@@ -11,14 +11,14 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :price, numericality: {greater_than: 0}
 
-  # composed_of :price,
-  #             class_name: "Money",
-  #             mapping: %w[price cents],
-  #             converter: proc { |value| Money.new(value) }
+  composed_of :price,
+              class_name: "Money",
+              mapping: %w[price cents],
+              converter: proc { |value| Money.new(value) }
 
   def average_review
     if reviews.average(:rating).nil?
-      "not reviewed yet!"
+      "not reviewed yet"
     else
       return reviews.average(:rating).round(1)
     end
