@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   root to: "homepages#index"
 
-  # might not need new
-
   resources :categories, only: [:new, :create, :show]
 
   get "/orders/empty", to: "orders#empty_order", as: "empty_order" # this has to be above resources :orders
 
-  resources :orders, except: [:new] # might not need index
+  resources :orders, except: [:new, :create, :index]
 
   get "/cart", to: "orders#cart", as: "cart"
   get "/checkout", to: "orders#checkout", as: "checkout"

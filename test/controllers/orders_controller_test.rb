@@ -42,39 +42,6 @@ describe OrdersController do
     end
   end
 
-  describe "create" do
-    describe "logged in users (same as non-logged in)" do
-      before do
-        perform_login(users(:dee))
-      end
-
-      it "will save a new order and redirect to cart path" do
-        before = Order.count
-        post orders_path
-
-        expect(Order.count).must_equal before + 1
-
-        # expect {
-        #   post orders_path
-        # }.must_change "Order.count", 1
-
-        must_respond_with :redirect
-        must_redirect_to cart_path
-      end
-    end
-
-    describe "non-logged in users (same as logged in)" do
-      it "will save a new order and redirect to cart path" do
-        expect {
-          post orders_path
-        }.must_change "Order.count", 1
-
-        must_respond_with :redirect
-        must_redirect_to cart_path
-      end
-    end
-  end
-
   describe "submit" do
     before do
       @current_order = create_cart
@@ -211,8 +178,16 @@ describe OrdersController do
   describe "empty_order" do
     it "should get empty_order" do
       get empty_order_path
-      value(response).must_be :success?
+      must_respond_with :success
     end
-    # add edge cases
+
+    it "should redirect to the cart if order is not in fact empty (so user can't type in that route and see it)" do
+      create_cart
+
+      get empty_order_path
+
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
   end
 end

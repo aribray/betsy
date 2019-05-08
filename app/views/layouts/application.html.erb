@@ -24,7 +24,11 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Browse by Merchants</a>
           <div class="dropdown-menu">
             <% User.all.each do |user| %>
-              <%= link_to user.name, user_path(user.id), class: "dropdown-item" %>
+              <% if user.name %>
+                <%= link_to user.name, user_path(user.id), class: "dropdown-item" %>
+              <% else %>
+                <%= link_to user.username, user_path(user.id), class: "dropdown-item" %>
+              <% end %>
             <% end %>
           </div>
         </li>
