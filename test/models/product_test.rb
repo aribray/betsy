@@ -22,16 +22,6 @@ describe Product do
       expect(duplicate_product_name.errors.messages[:name]).must_equal ["has already been taken"]
     end
 
-    it "requires a price and a number" do
-      product.price = nil
-
-      valid_product = product.valid?
-
-      expect(valid_product).must_equal false
-      expect(product.errors.messages).must_include :price
-      expect(product.errors.messages[:price]).must_equal ["can't be blank", "is not a number"]
-    end
-
     it "must have a price greater than 0" do
       product.price = -1
       valid_product = product.valid?
@@ -154,7 +144,7 @@ describe Product do
   describe "average_review" do
     it "will return a message when a product doesn't have a review" do
       newer_product = Product.create(name: "newer_product", price: 200)
-      expect(newer_product.average_review).must_equal "not reviewed yet!"
+      expect(newer_product.average_review).must_equal "not reviewed yet"
     end
 
     it "will return an average of ratings for a product" do
