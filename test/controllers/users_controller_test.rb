@@ -51,69 +51,59 @@ describe UsersController do
     end
 
     it "will redirect back to root with a flash message if not coming from github" do
-      # Skip Auth hash creation (from notes?)
-      # probably just ignore everything below... it doesn't work
+      user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
 
-      # # user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
-      # delete logout_path
-      # # expect {
-      # # OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(user))
-      # # binding.pry
+      start_count = User.count
 
-      # # get auth_callback_path(:haha)
+      mock_auth_hash = {
+        provider: "not-github",
+        uid: user.uid,
+        info: {
+          email: user.email,
+          nickname: user.username,
+          name: user.name,
+        },
+      }
 
-      # must_respond_with :redirect
-      # must_redirect_to root_path
-      # # }.wont_change "User.count"
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash)
 
-      # # expect(flash[:success]).must_equal "Logged in as new user"
-      # # user = User.find_by(uid: user.uid, provider: user.provider)
+      expect(User.count).must_equal start_count
 
-      # # expect(session[:user_id]).must_equal user.id
+      get auth_callback_path(:github)
 
-      # # user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
+      must_respond_with :redirect
+      must_redirect_to root_path
 
-      # # # perform_login
+      expect(User.count).must_equal start_count
+      expect(flash[:error]).must_equal "Could not create new user account"
+    end
 
-      # # user ||= users(:dee)
+    it "will redirect back to root with a flash message if incomplete info is sent" do
+      user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
 
-      # # # OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(user))
+      start_count = User.count
 
-      # # get auth_callback_path(:github)
+      mock_auth_hash = {
+        provider: "github",
+        uid: user.uid,
+        info: {
+          email: user.email,
+          nickname: nil,
+          name: user.name,
+        },
+      }
 
-      # # # return user
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash)
 
-      # # # expect(session[:user_id]).must_be_nil
-      # expect(flash[:success]).must_equal "Could not create new user account"
+      expect(User.count).must_equal start_count
 
-      # OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(
-      #   {
-      #     provider: "github",
-      #     uid: user.uid,
-      #     info: {
-      #       email: user.email,
-      #       nickname: user.username,
-      #       name: user.name,
-      #     },
-      #   }
-      # )
+      get auth_callback_path(:github)
 
-      # get auth_callback_path(:github)
+      must_respond_with :redirect
+      must_redirect_to root_path
 
-      # must_respond_with :redirect
-      # must_redirect_to root_path
-
-      # # expect {
-      # #   login_path, params:
-      # # }.wont_change "User.count"
-
-      # expect(flash[:error]).must_equal "Could not create new user account: #{user.errors.messages}"
-      # # user = User.find_by(uid: user.uid, provider: user.provider)
-
-      # expect(session[:user_id]).must_equal nil
-
-      # must_respond_with :redirect
-      # must_redirect_to root_path
+      expect(User.count).must_equal start_count
+      expect(flash[:error]).must_equal "Could not create new user account"
     end
   end
 

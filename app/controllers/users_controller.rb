@@ -20,12 +20,15 @@ class UsersController < ApplicationController
     if user
       flash[:success] = "Logged in as returning user #{user.name}"
     else
-      user = User.build_from_github(auth_hash)
-
-      if user.save
-        flash[:success] = "Logged in as new user #{user.name}"
+      if auth_hash["provider"] == "github"
+        user = User.build_from_github(auth_hash)
+        if user.save
+          flash[:success] = "Logged in as new user #{user.name}"
+        else
+          flash[:error] = "Could not create new user account"
+          return redirect_to root_path
+        end
       else
-        # flash[:error] = "Could not create new user account: #{user.errors.messages}"
         flash[:error] = "Could not create new user account"
 
         return redirect_to root_path
