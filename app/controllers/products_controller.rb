@@ -54,9 +54,14 @@ class ProductsController < ApplicationController
     @product.quantity = params[:product][:quantity]
     @product.photo_url = params[:product][:photo_url]
 
+    if !params[:product][:categories_attributes]["0"][:name].blank?
+      category = Category.new(name: params[:product][:categories_attributes]["0"][:name])
+    end
     categories = split(params)
+    if !category.nil? && category.valid?
+      categories << category
+    end
     @product.categories = categories
-    # if @product.update_attributes(product_params)
     if @product.save!
       flash[:success] = 'Product updated successfully!'
       redirect_to product_path(@product.id)
