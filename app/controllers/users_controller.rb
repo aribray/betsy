@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   end
 
   def login
-    auth_hash = request.env['omniauth.auth']
+    auth_hash = request.env["omniauth.auth"]
 
-    user = User.find_by(uid: auth_hash[:uid], provider: 'github')
+    user = User.find_by(uid: auth_hash[:uid], provider: "github")
     if user
       flash[:success] = "Logged in as returning user #{user.name}"
     else
@@ -25,7 +25,9 @@ class UsersController < ApplicationController
       if user.save
         flash[:success] = "Logged in as new user #{user.name}"
       else
-        flash[:error] = "Could not create new user account: #{user.errors.messages}"
+        # flash[:error] = "Could not create new user account: #{user.errors.messages}"
+        flash[:error] = "Could not create new user account"
+
         return redirect_to root_path
       end
     end
@@ -36,18 +38,26 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    flash[:success] = 'Successfully logged out!'
+    flash[:success] = "Successfully logged out!"
     redirect_to root_path
   end
 
   def myaccount
-    @user = User.find_by(id: session[:user_id])
-    # this will be the current logged in user's merchant dashboard
+    if session[:user_id]
+      @user = User.find_by(id: session[:user_id])
+    else
+      redirect_to root_path
+      flash[:error] = "You must be logged in to do that."
+    end
   end
 
   def myorders
-    @user = User.find_by(id: session[:user_id])
-    # this will be the current logged in user's orders, if we want that as its own page
+    if session[:user_id]
+      @user = User.find_by(id: session[:user_id])
+    else
+      redirect_to root_path
+      flash[:error] = "You must be logged in to do that."
+    end
   end
 
   private
