@@ -48,8 +48,16 @@ class ProductsController < ApplicationController
   end
 
   def update
-    raise
-    if @product.update_attributes(product_params)
+    @product.name = params[:product][:name]
+    @product.description = params[:product][:description]
+    @product.price = params[:product][:price]
+    @product.quantity = params[:product][:quantity]
+    @product.photo_url = params[:product][:photo_url]
+
+    categories = split(params)
+    @product.categories = categories
+    # if @product.update_attributes(product_params)
+    if @product.save!
       flash[:success] = 'Product updated successfully!'
       redirect_to product_path(@product.id)
     else
