@@ -4,7 +4,7 @@ describe UsersController do
   describe "index" do
     it "should get index" do
       get users_path
-      value(response).must_be :success?
+      must_respond_with :success
     end
   end
 
@@ -51,7 +51,59 @@ describe UsersController do
     end
 
     it "will redirect back to root with a flash message if not coming from github" do
-      # Skip Auth hash creation
+      user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
+
+      start_count = User.count
+
+      mock_auth_hash = {
+        provider: "not-github",
+        uid: user.uid,
+        info: {
+          email: user.email,
+          nickname: user.username,
+          name: user.name,
+        },
+      }
+
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash)
+
+      expect(User.count).must_equal start_count
+
+      get auth_callback_path(:github)
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      expect(User.count).must_equal start_count
+      expect(flash[:error]).must_equal "Could not create new user account"
+    end
+
+    it "will redirect back to root with a flash message if incomplete info is sent" do
+      user = User.new(provider: "github", name: "bob", username: "bobbi", uid: 987, email: "bob@hope.com")
+
+      start_count = User.count
+
+      mock_auth_hash = {
+        provider: "github",
+        uid: user.uid,
+        info: {
+          email: user.email,
+          nickname: nil,
+          name: user.name,
+        },
+      }
+
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash)
+
+      expect(User.count).must_equal start_count
+
+      get auth_callback_path(:github)
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      expect(User.count).must_equal start_count
+      expect(flash[:error]).must_equal "Could not create new user account"
     end
   end
 
@@ -62,6 +114,40 @@ describe UsersController do
       delete logout_path(user)
       expect(flash[:success]).must_equal "Successfully logged out!"
       must_respond_with :redirect
+    end
+  end
+
+  describe "myaccount" do
+    it "should get myaccount if logged in" do
+      perform_login
+
+      get myaccount_path
+      must_respond_with :success
+    end
+
+    it "should redirect to homepage and flash error if not logged in" do
+      get myaccount_path
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      flash[:error].must_equal "You must be logged in to do that."
+    end
+  end
+
+  describe "myorders" do
+    it "should get myorders if logged in" do
+      perform_login
+
+      get myorders_path
+      must_respond_with :success
+    end
+
+    it "should redirect to homepage and flash error if not logged in" do
+      get myorders_path
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      flash[:error].must_equal "You must be logged in to do that."
     end
   end
 end

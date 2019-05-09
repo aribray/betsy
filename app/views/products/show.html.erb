@@ -1,42 +1,75 @@
-<h2><%= @product.name %></h2>
-
-<%= image_tag(@product.photo_url, height: "250", alt: "product image")%>
-<p>average rating: <%= @product.average_review %>
-<p>description: <%= @product.description %></p>
-<p>quantity in stock: <%= @product.quantity %></p>
-<p>price: $<%= @product.price %></p>
-
-<%= form_with model: @orderitems, class: "quantity_form", url: orderitems_path, method: :post do |f| %>
-
-  <%= f.label :quantity %>
-  <%= f.select :quantity, (1..@product.quantity)%>
-  <%= hidden_field_tag "product_id", "#{@product.id}" %>
-
-  <%= f.submit "Add to Cart", class: "submit-button" %>
-
-<% end %>
-<%#= button_to "Add to Cart", orderitems_path, method: :post, params: {product_id: @product.id} %>
-<%= render "/reviews/new"%>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Rating</th>
-        <th scope="col">Description</th>
-       </tr> 
-    </thead>
-    <tbody>
-    <% @product.reviews.each do |review|%>
-      <tr>
-        <th scope="row"><%= review.rating %></th>
-        <td><%= review.description%>
-      </tr>
-      
-    <% end %>
-</table>
-
-<% if false %>
-<%# <li>by: <%= link_to user = User.find_by(id: product.user_id).name, user_path(product.user_id) %></li> %>
-<% end %>
-
-
-
+<h2><%# @product.name %></h2>
+<section class="product-show">
+  <div class="product-image">
+    <%= image_tag(@product.photo_url, width: "100%", alt: "product image")%>
+  </div>
+  <div class="product-info">
+    <table class="table">
+      <thead>
+        <tr>
+          <td colspan="2" class="product-title">
+            <h2><%= @product.name %></h2>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>average rating</th>
+          <td><%= @product.average_review %></td>
+        </tr>
+        <tr>
+          <th>description</th>
+          <td><%= @product.description %></td>
+        </tr>
+        <tr>
+          <th>quantity in stock</th>
+          <td><%= @product.quantity %></td>
+        </tr>
+        <tr>
+          <th>price</th>
+          <td>$<%= @product.price %></td>
+        </tr>
+        <tr>
+          <th>add to cart</th>
+          <td>
+            <div class="product-add-to-cart">
+              <%= form_with model: @orderitems, class: "quantity_form", url: orderitems_path, method: :post do |f| %>
+                <%= f.select :quantity, (1..@product.quantity)%>
+                <%= hidden_field_tag "product_id", "#{@product.id}" %>
+                <%= f.submit "Add to Cart", class: "submit-button" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="product-reviews">
+  <section class="leave-review">
+    <h4>Leave a Review:</h4>
+    <%= render "/reviews/new"%>
+  </section>
+  <section class="all-reviews">
+    <h4>All Reviews:</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recent_reviews = @product.reviews.reverse %>
+        <% recent_reviews.each do |review|%>
+          <tr>
+            <td><%= review.created_at.strftime("%D") %></td>
+            <th scope="row"><%= review.rating %></th>
+            <td><%= review.description%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </section>
+  </table>
+</section>

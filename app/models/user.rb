@@ -13,14 +13,14 @@ class User < ApplicationRecord
   def self.build_from_github(auth_hash)
     user = User.new
     user.uid = auth_hash[:uid]
-    user.provider = 'github'
-    user.name = auth_hash['info']['name']
-    user.username = auth_hash['info']['nickname']
-    user.email = auth_hash['info']['email']
+    user.provider = "github"
+    user.name = auth_hash["info"]["name"]
+    user.username = auth_hash["info"]["nickname"]
+    user.email = auth_hash["info"]["email"]
     user
   end
 
-  def self.total_revenue(user, shipped: '*')
+  def self.total_revenue(user, shipped: "*")
     total = 0
 
     orderitems_filter(user, shipped: shipped).each do |item|
@@ -29,8 +29,8 @@ class User < ApplicationRecord
     total
   end
 
-  def self.orderitems_filter(user, shipped: '*')
-    orderitems = shipped == '*' ? user.orderitems : user.orderitems.where(shipped: shipped)
+  def self.orderitems_filter(user, shipped: "*")
+    orderitems = shipped == "*" ? user.orderitems : user.orderitems.where(shipped: shipped)
 
     orderitems
   end

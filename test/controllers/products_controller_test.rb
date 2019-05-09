@@ -255,12 +255,24 @@ describe ProductsController do
 
   describe "retire" do
     describe "logged in user" do
-      it "should change the retired status of the product" do
+      it "should change the retired status of the product to false if true" do
         perform_login
 
         patch retire_path(existing_product.id)
         must_respond_with :found
         expect(existing_product.reload.retired).must_equal true
+      end
+
+      it "should change the retired status of the product to true if false" do
+        perform_login
+
+        patch retire_path(existing_product.id)
+        must_respond_with :found
+        expect(existing_product.reload.retired).must_equal true
+
+        patch retire_path(existing_product.id)
+        must_respond_with :found
+        expect(existing_product.reload.retired).must_equal false
       end
 
       it "will raise an error and redirect to root path for nonexistent product" do
@@ -289,29 +301,29 @@ describe ProductsController do
     it "accepts nested attributes for categories" do
       user = perform_login(users(:dee))
       input_photo_url = "https://drive.google.com/uc?id=1LCGn0419g0STAeyDo-miWCD6o5ZOEkXM"
-        input_description = "black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam."
-        input_name = "Test Product"
-        input_price = 9900
-        input_quantity = 20
-        input_user_id = user.id
-        test_input = {
-          "product": {
-            photo_url: input_photo_url,
-            description: input_description,
-            name: input_name,
-            price: input_price,
-            quantity: input_quantity,
-            category: ["190426989"],
-            user_id: input_user_id,
-          },
-        }
-      
-        expect do
-          post products_path, params: test_input
-        end.must_change "Product.count"
+      input_description = "black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam."
+      input_name = "Test Product"
+      input_price = 9900
+      input_quantity = 20
+      input_user_id = user.id
+      test_input = {
+        "product": {
+          photo_url: input_photo_url,
+          description: input_description,
+          name: input_name,
+          price: input_price,
+          quantity: input_quantity,
+          category: ["190426989"],
+          user_id: input_user_id,
+        },
+      }
 
-        new_product = Product.find_by(name: input_name)
-        expect(new_product.categories.first).must_be_kind_of Category
+      expect do
+        post products_path, params: test_input
+      end.must_change "Product.count"
+
+      new_product = Product.find_by(name: input_name)
+      expect(new_product.categories.first).must_be_kind_of Category
     end
   end
 end

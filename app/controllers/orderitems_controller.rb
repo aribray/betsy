@@ -26,8 +26,7 @@ class OrderitemsController < ApplicationController
     if is_successful
       redirect_to cart_path
     else
-      # figure out what we want to do here later
-      redirect_to root_path
+      # I don't think we'll ever hit this?? Current order either exists or is created, and the product comes from the URL
     end
     return order_item
   end
@@ -55,17 +54,14 @@ class OrderitemsController < ApplicationController
 
   def destroy
     @order_item = Orderitem.find_by(id: params[:orderitem_id])
-    name = @order_item.product.name
+    name = @order_item.product.name if @order_item
     @order_item.destroy
     redirect_to cart_path
+
     flash[:success] = "Successfully removed #{name} from cart"
   end
 
   private
-
-  def order_item_params
-    params.require(:order_item).permit(:quantity, :product_id, :cart_id)
-  end
 
   def select_product
     @chosen_product = Product.find_by(id: params[:product_id])

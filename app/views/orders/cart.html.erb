@@ -2,7 +2,7 @@
 <p>Find me in app/views/orders/cart.html.erb</p>
 
 <p>We'll want to add functionality to edit quantity</p>
-<table class="table">
+<table class="table cart-table">
   <thead>
     <th scope="col"></th>
     <th scope="col">Product</th>
@@ -18,7 +18,6 @@
         <td><%= orderitem.product.name %></td>
         <%# orderitem.quantity %>
         <td>
-
           <%= form_with model: @orderitems, class: "quantity_form", url: orderitems_path, method: :post do |f| %>
 
             <%= f.select :quantity, (1..orderitem.product.quantity), :selected => orderitem.quantity %>
