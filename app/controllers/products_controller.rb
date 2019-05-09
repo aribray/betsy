@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
     @product.user_id = @current_user.id if @current_user
     if @product.save
-      flash[:success] = 'Product added successfully'
+      flash[:success] = "Product added successfully"
       redirect_to product_path(@product.id)
     else
       render :new, status: :bad_request
@@ -42,28 +42,27 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     if @product.nil?
-      flash[:error] = 'Could not find this product.'
+      flash[:error] = "Could not find this product."
       redirect_back fallback_location: products_path
     end
   end
 
   def update
-    @product.name = params[:product][:name]
-    @product.description = params[:product][:description]
-    @product.price = params[:product][:price]
-    @product.quantity = params[:product][:quantity]
-    @product.photo_url = params[:product][:photo_url]
+    @product.name = params[:product][:name] if params[:product][:name]
+    @product.description = params[:product][:description] if params[:product][:description]
+    @product.price = params[:product][:price] if params[:product][:price]
+    @product.quantity = params[:product][:quantity] if params[:product][:quantity]
+    @product.photo_url = params[:product][:photo_url] if params[:product][:photo_url]
 
-    if !params[:product][:categories_attributes]["0"][:name].blank?
+    if params[:product][:categories_attributes] && !params[:product][:categories_attributes]["0"][:name].blank?
       category = Category.new(name: params[:product][:categories_attributes]["0"][:name])
     end
     categories = split(params)
-    if !category.nil? && category.valid?
-      categories << category
-    end
+    categories << category if !category.nil? && category.valid?
     @product.categories = categories
-    if @product.save!
-      flash[:success] = 'Product updated successfully!'
+
+    if @product.save
+      flash[:success] = "Product updated successfully!"
       redirect_to product_path(@product.id)
     else
       @product.errors.messages.each do |field, messages|
@@ -75,7 +74,7 @@ class ProductsController < ApplicationController
 
   def retire
     if @product.nil?
-      flash[:error] = 'Could not find this product'
+      flash[:error] = "Could not find this product"
       redirect_to root_path
       return
     end
