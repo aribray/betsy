@@ -10,12 +10,12 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true
-  validates :price, numericality: {greater_than: 0}
+  validates :price, numericality: { greater_than: 0 }
 
   composed_of :price,
               class_name: "Money",
               mapping: %w[price cents],
-              converter: proc { |value| Money.new(value) }
+              converter: proc { |value| Money.new(value.to_i * 100) }
 
   def average_review
     if reviews.average(:rating).nil?
