@@ -59,10 +59,4 @@ class UsersController < ApplicationController
       flash[:error] = "You must be logged in to do that."
     end
   end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:username, :email, :uid, :provider, :name)
-  end
 end
