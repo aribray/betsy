@@ -154,7 +154,7 @@ products = [
     user_id: merchant_2.id,
   },
   {
-    photo_url: "https://drive.google.com/uc?id=16W32YMjpQG4wT6xf5F2xn1VAQFY6U_A1",
+    photo_url: "https://drive.google.com/uc?id=1Eaxzb-DiBIV4Q5fIXARS67yV6DvN38K-",
     description: "Chic and environmentally friendly!",
     name: "Crystal Straw",
     price: 9900,
