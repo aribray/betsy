@@ -9,7 +9,7 @@
         </li>
         <li>$<%= product.price%></li>
         <li><p class="product-description"><%= product.description %></p></li>
-        <li><p class="product-rating"><%= product.average_review %></p></li>
+        <li><p class="product-rating"><%= stars(product) %></p></li>
       </ul>
     <% end %>
   <% end %>
