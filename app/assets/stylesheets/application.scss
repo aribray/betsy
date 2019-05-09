@@ -17,12 +17,9 @@
 /* Import scss content */
 @import "**/*";
 
-
 * {
   font-family: Karla, Helvetica, sans-serif;
 }
-
-// Karla|Lato|Work+Sans
 
 main {
   min-height: 95vh;
@@ -174,7 +171,8 @@ p {
 #scam_fade {
   animation-name: fade;
   transition-delay: 2s;
-  animation-duration: 4s;
+  animation-duration: 3s;
+}
 
 .product-show {
   display: grid;
@@ -248,4 +246,8 @@ p {
 
 .review-description-form {
   width: 100%;
+}
+
+.intro div {
+  margin: 6rem;
 }
