@@ -28,27 +28,31 @@ class OrderitemsController < ApplicationController
     else
       # I don't think we'll ever hit this?? Current order either exists or is created, and the product comes from the URL
     end
-    return order_item
+    order_item
   end
-
-  def edit; end
-
-  def update; end
 
   def ship
     @orderitem = Orderitem.find_by(id: params[:id])
     if @orderitem.nil?
-      flash[:error] = "Could not find this product"
+      flash[:error] = 'Could not find this product'
       redirect_to root_path
       return
     end
+    order = Order.find_by(id: @orderitem.order_id)
 
     if @orderitem.shipped == false
       @orderitem.shipped = true
     else
-      flash[:error] = "This item has already shipped"
+      flash[:error] = 'This item has already shipped'
     end
     @orderitem.save
+    results = []
+    order.orderitems.each do |item|
+      results << item[:shipped]
+    end
+
+    order.status = 'complete' unless results.include?('false')
+    order.save
     redirect_to myorders_path
   end
 
