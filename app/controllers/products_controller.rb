@@ -58,9 +58,7 @@ class ProductsController < ApplicationController
       category = Category.new(name: params[:product][:categories_attributes]["0"][:name])
     end
     categories = split(params)
-    if !category.nil? && category.valid?
-      categories << category
-    end
+    categories << category if !category.nil? && category.valid?
     @product.categories = categories
 
     if @product.save

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "test_helper"
-require "pry"
+require 'test_helper'
+require 'pry'
 
 describe OrderitemsController do
-  describe "create" do
+  describe 'create' do
     it "will save a new orderitem and redirect to cart if given valid inputs and that orderitem doesn't already exist" do
       product_id = products(:turtleneck).id
 
@@ -12,12 +12,12 @@ describe OrderitemsController do
 
       test_input = {
         "product_id": product_id,
-        "quantity": orderitem_quantity,
+        "quantity": orderitem_quantity
       }
 
       expect do
         post orderitems_path, params: test_input
-      end.must_change "Orderitem.count", 1
+      end.must_change 'Orderitem.count', 1
 
       order_id = Order.last.id
 
@@ -33,22 +33,22 @@ describe OrderitemsController do
       must_redirect_to cart_path
     end
 
-    it "will add quantity to an existing orderitem and redirect to cart if given valid inputs" do
+    it 'will add quantity to an existing orderitem and redirect to cart if given valid inputs' do
       product_id = products(:turtleneck).id
       quantity = 1
 
       test_input = {
         "product_id": product_id,
-        "quantity": 2,
+        "quantity": 2
       }
 
       expect do
         post orderitems_path, params: test_input
-      end.must_change "Orderitem.count", 1
+      end.must_change 'Orderitem.count', 1
 
       expect do
         post orderitems_path, params: test_input
-      end.wont_change "Orderitem.count"
+      end.wont_change 'Orderitem.count'
 
       order_id = Order.last.id
 
@@ -63,26 +63,26 @@ describe OrderitemsController do
       must_redirect_to cart_path
     end
 
-    it "will give a 400 error with invalid params" do
+    it 'will give a 400 error with invalid params' do
       product_id = nil
       test_input = {
-        "product_id": product_id,
+        "product_id": product_id
       }
       expect do
         post products_path, params: test_input
-      end.wont_change "Product.count"
+      end.wont_change 'Product.count'
 
       must_respond_with :redirect
     end
   end
 
-  describe "ship" do
-    describe "logged in users" do
+  describe 'ship' do
+    describe 'logged in users' do
       before do
         @user = perform_login
       end
 
-      it "will change orderitems shipped status to true" do
+      it 'will change orderitems shipped status to true' do
         item = @user.orderitems.first
         patch ship_path(item.id)
 
@@ -90,7 +90,7 @@ describe OrderitemsController do
         expect(item.reload.shipped).must_equal true
       end
 
-      it "will flash error if orderitem already shipped" do
+      it 'will flash error if orderitem already shipped' do
         item = @user.orderitems.first
         item.update(shipped: true)
         item.reload
@@ -98,37 +98,49 @@ describe OrderitemsController do
         patch ship_path(item.id)
 
         must_respond_with :redirect
-        flash[:error].must_equal "This item has already shipped"
+        flash[:error].must_equal 'This item has already shipped'
       end
 
-      it "will flash an error and redirect of the item is not found" do
+      it 'will flash an error and redirect of the item is not found' do
         patch ship_path(-1)
 
         must_redirect_to root_path
-        expect(flash[:error]).must_equal "Could not find this product"
+        expect(flash[:error]).must_equal 'Could not find this product'
+      end
+
+      it 'will change the order status to complete if all orderitems belonging to the order have shipped' do
+        item = @user.orderitems.first
+        item2 = @user.orderitems.last
+
+        order = Order.find_by(id: item.order_id)
+
+        patch ship_path(item.id)
+        patch ship_path(item2.id)
+        must_respond_with :redirect
+        expect(order.reload.status).must_equal 'complete'
       end
     end
 
-    describe "logged out users" do
-      it "will respond with found and error message to prompt user to login" do
+    describe 'logged out users' do
+      it 'will respond with found and error message to prompt user to login' do
         patch ship_path(Orderitem.first.id)
 
         must_respond_with :found
-        expect(flash[:error]).must_equal "You must be logged in to do this action"
+        expect(flash[:error]).must_equal 'You must be logged in to do this action'
         must_respond_with :redirect
         must_redirect_to root_path
       end
     end
 
-    describe "destroy" do
+    describe 'destroy' do
       before do
         @orderitem = orderitems(:one)
       end
-      it "can destroy existing orderitem" do
+      it 'can destroy existing orderitem' do
         name = @orderitem.product.name
         expect do
-          delete orderitem_path(@orderitem.id), params: {orderitem_id: @orderitem.id}
-        end.must_change "Orderitem.count", -1
+          delete orderitem_path(@orderitem.id), params: { orderitem_id: @orderitem.id }
+        end.must_change 'Orderitem.count', -1
 
         flash[:success].must_equal "Successfully removed #{name} from cart"
       end
