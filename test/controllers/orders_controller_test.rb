@@ -3,21 +3,70 @@ require "test_helper"
 describe OrdersController do
   describe "show" do
     it "should get show" do
+      perform_login
+
       order = orders(:one)
       get order_path(order.id)
-      value(response).must_be :success?
+
+      must_respond_with :found
     end
 
-    it "will respond with 404 if the order is not found" do
+    it "will redirect and flash error if the order is not found" do
+      perform_login
+
       invalid_order_id = -1
 
       get order_path(invalid_order_id)
-      must_respond_with :not_found
+      must_redirect_to root_path
+
+      expect(flash[:failure]).must_equal "That order doesn't exist"
     end
 
-    # it "can't view another user's cart" do
-    #   # implement this later, if there's time
-    # end
+    it "denies access if order doesn't have any items" do
+      perform_login
+
+      order = Order.create
+      get order_path(order.id)
+
+      must_redirect_to root_path
+      expect(flash[:error]).must_equal "You don't have access to do that."
+    end
+
+    it "denies access if order doesn't have any of logged-in merchant's items" do
+      order = Order.create
+
+      user = perform_login
+
+      Orderitem.create(order_id: order.id, product_id: products(:two).id, quantity: 1)
+
+      expect(order.orderitems.length).must_equal 1
+
+      expect(order.orderitems.first.product.user).must_equal users(:cooper)
+      expect(user).must_equal users(:dee)
+
+      get order_path(order.id)
+
+      must_redirect_to root_path
+      expect(flash[:error]).must_equal "You don't have access to do that."
+    end
+
+    it "allows access if order has any of logged-in merchant's items" do
+      user = perform_login # dee owns turtleneck
+
+      order = Order.create
+      Orderitem.create(order_id: order.id, product_id: products(:turtleneck).id, quantity: 1)
+      get order_path(order.id)
+
+      must_respond_with :found
+    end
+
+    it "redirects with flash error if not logged in" do
+      order = Order.create
+      get order_path(order.id)
+
+      must_redirect_to root_path
+      expect(flash[:error]).must_equal "You must be logged in to do this action"
+    end
   end
 
   describe "checkout" do

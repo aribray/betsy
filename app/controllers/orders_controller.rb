@@ -1,12 +1,31 @@
 
 class OrdersController < ApplicationController
   before_action :find_order, except: [:empty_order]
+  before_action :require_login, only: [:show]
 
   def show
     @order = Order.find_by(id: params[:id])
+
     if @order.nil?
       flash[:failure] = "That order doesn't exist"
-      redirect_to root_path, status: :not_found
+      redirect_to root_path
+      return
+    end
+
+    user_products = @current_order.orderitems.map { |oi| oi.product }
+
+    if @order.orderitems == []
+      flash[:error] = "You don't have access to do that."
+      redirect_to root_path
+      return
+    end
+
+    @order.orderitems.each do |oi|
+      unless user_products.include?(oi.product)
+        flash[:error] = "You don't have access to do that."
+        redirect_to root_path
+        return
+      end
     end
   end
 
