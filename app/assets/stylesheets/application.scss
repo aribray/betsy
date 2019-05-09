@@ -110,15 +110,6 @@ a.site-title:hover {
 
 .product-rating {
   color: white;
-  // display: none;
-}
-
-.product-rating::before {
-  content: "("
-}
-
-.product-rating::after {
-  content: ")"
 }
 
 p {
