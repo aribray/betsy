@@ -24,9 +24,9 @@
         <td><%= product.quantity%></td>
         <td><%= link_to "Edit Product", edit_product_path(product.id)%></td>
         <% if product.retired == false%>
-          <td><%= link_to "Retire", retire_path(product.id), method: :patch %></td>
+          <td><%= link_to "Retire", retire_path(product.id), method: :patch, class: "color-red" %></td>
         <%else%>
-          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch %></td>
+          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch, class: "color-green" %></td>
         <%end%>
       </tr>
     <% end %>
