@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Work+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <header>
@@ -35,21 +36,20 @@
           </div>
         </li>
         <li class="nav-item"><%= link_to "All Products", products_path, class: "nav-link"  %></li>
-        <%# <div class="right-nav"> %>
+        <div class="nav-spacer"></div>
         <% if @current_user %>
           <li class="nav-item"><%= link_to "My Account", myaccount_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "Log out", logout_path, method: "delete", class: "nav-link"  %></li>
         <% else %>
           <li class="nav-item"><%= link_to "Login with Github", github_login_path, class: "nav-link" %></li>
         <% end %>
+        <li class="nav-item">
+          <% if session[:order_id] %>
+            <%= button_to "Cart", cart_path, method: :get, class: "btn btn-dark nav-link" %>
+          <% else %>
+            <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-dark nav-link" %>
+          <% end %>
         </li>
-        <%# This should eventually show whether there's a user logged in or not, once we figure out that logic %>
-        <% if session[:order_id] %>
-          <%= button_to "Cart", cart_path, method: :get, class: "btn btn-dark nav-link" %>
-        <% else %>
-          <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-dark nav-link" %>
-        <% end %>
-        <%# </div>     %>
       </nav>
       <% if flash.count > 0 %>
         <section class="flash">
@@ -81,7 +81,13 @@
             <%= yield %>
           </main>
           <footer>
-            <p>Copyright 2019</p>
+            <p>&copy; 2019 ScamFam, LLC</p>
+            <div class="spacer"></div>
+            <ul>
+              <li><a href="https://www.linkedin.com/in/amy-martinsen206/" class="fa fa-linkedin"></a></li>
+              <li><a href="https://github.com/amyesh" class="fa fa-github"></a></li>
+              <li><a href="https://www.instagram.com/amyesh/" class="fa fa-instagram"></a></li>
+            </ul>
           </footer>
         </body>
       </html>

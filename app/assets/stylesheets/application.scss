@@ -26,10 +26,6 @@ main {
   max-height: auto;
 }
 
-footer {
-  height: 5vh;
-}
-
 section.intro {
   background-image: linear-gradient(-120deg, rgb(37, 79, 107), rgba(37, 79, 107, 0.85), rgb(37, 79, 107));
   width: auto;
@@ -40,6 +36,10 @@ section.intro {
 
 nav li {
   list-style-type: none;
+}
+
+.nav-spacer {
+  flex-grow: 1;
 }
 
 main li {
@@ -250,4 +250,39 @@ p {
 
 .intro div {
   margin: 6rem;
+}
+
+.fa {
+  text-decoration: none;
+  color: black;
+}
+
+.fa:hover {
+  color: rgb(37, 79, 107);
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  height: 16px;
+}
+
+footer p {
+  padding: 4px;
+}
+
+footer .spacer {
+  flex-grow: 1;
+}
+
+footer ul {
+  margin: 0;
+}
+
+footer ul li {
+  display: inline;
+  font-size: 1.5rem;
+  list-style-type: none;
+  padding: 4px;
 }
