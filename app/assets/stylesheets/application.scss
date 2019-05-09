@@ -92,9 +92,6 @@ a.site-title:hover {
   padding: 5px;
 }
 
-.product-item img {
-}
-
 .product-item:hover {
   background-color: lightgrey;
 }
@@ -125,4 +122,78 @@ p {
   font-style: italic;
   margin: 50px;
   color: grey;
+}
+
+.product-show {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.product-reviews {
+  padding: 35px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.product-show > *{
+  padding: 20px;
+}
+
+.product-show img {
+  text-align: center;
+}
+
+.product-reviews {
+  background-color: rgba(128, 128, 128, 0.132);
+}
+
+.product-image {
+  align-self: center;
+}
+
+.product-info table {
+  border-collapse: separate;
+  border-spacing: 1em;
+  vertical-align: middle;
+}
+
+.product-info td {
+  font-weight: bold;
+  border-top: none;
+  margin: 10px;
+  padding: 0px;
+}
+
+.product-info th {
+  text-transform: uppercase;
+  color: grey;
+  text-align: right;
+  border-right: solid grey 1px;
+  padding-top: 0px;
+  border-top: none;
+  margin: 10px;
+}
+
+.product-title {
+  text-align: center;
+}
+
+.product-add-to-cart .submit-button {
+  margin-left: 10px;
+}
+
+.product-reviews {
+  margin-top: 50px;
+  grid-column-start: 0;
+  grid-column-end: 3;
+}
+
+.leave-review {
+  padding-bottom: 50px;
+}
+
+.review-description-form {
+  width: 100%;
 }
