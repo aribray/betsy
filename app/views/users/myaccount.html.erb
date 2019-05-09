@@ -1,34 +1,34 @@
 <h2>Account Details for <%=@user.username%></h2>
-
-<nav>
-  <%= link_to "Create New Category", new_category_path %>
-  <%= link_to "Create New Product", new_product_path%>
-  <%= link_to "View Related Orders", myorders_path %>
-</nav>
-
-    <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-         <th scope="col">Price</th>
-         <th scope="col">Quantity</th>
-         <th scope="col">Edit</th>
-         <th scope="col">Retire/Reinstate</th>
-       </tr> 
-    </thead>
-    <tbody>
+<%# <nav> %>
+<%= link_to "Create New Category", new_category_path %>
+<%= link_to "Create New Product", new_product_path%>
+<%= link_to "View Related Orders", myorders_path %>
+<%# </nav> %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Retire/Reinstate</th>
+    </tr>
+  </thead>
+  <tbody>
     <% @user.products.each do |product| %>
       <tr>
         <th scope="row"><%= link_to product.name, product_path(product.id) %></th>
-        <td><%= product.description%>
-        <td>$<%= product.price%>
-        <td><%= product.quantity%>
-        <td><%= link_to "Edit Product", edit_product_path(product.id)%>
+        <td><%= product.description%></td>
+        <td>$<%= product.price%></td>
+        <td><%= product.quantity%></td>
+        <td><%= link_to "Edit Product", edit_product_path(product.id)%></td>
         <% if product.retired == false%>
-          <td><%= link_to "Retire", retire_path(product.id), method: :patch %>
+          <td><%= link_to "Retire", retire_path(product.id), method: :patch %></td>
         <%else%>
-          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch %>
+          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch %></td>
         <%end%>
       </tr>
     <% end %>
+  </tbody>
+</table>
