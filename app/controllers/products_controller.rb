@@ -48,7 +48,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
+    raise
+    if @product.update_attributes(product_params)
       flash[:success] = 'Product updated successfully!'
       redirect_to product_path(@product.id)
     else
