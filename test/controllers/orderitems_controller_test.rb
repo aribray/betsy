@@ -19,9 +19,6 @@ describe OrderitemsController do
         post orderitems_path, params: test_input
       end.must_change "Orderitem.count", 1
 
-      # expect(Orderitem.last).must_be_kind_of Orderitem
-      # expect(Orderitem.all.last.quantity).must_equal orderitem_quantity
-
       order_id = Order.last.id
 
       new_orderitem = Orderitem.find_by(order_id: order_id, product_id: product_id)
