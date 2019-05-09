@@ -172,10 +172,22 @@ p {
   100% {opacity: 1;}
 }
 
+@keyframes shift {
+  0% {margin-left: 200px}
+  50% {margin-left: 200px}
+  100% {margin-left: none}
+}
+
 #scam_fade {
   animation-name: fade;
   transition-delay: 2s;
   animation-duration: 3s;
+}
+
+#scam_shift {
+  animation-name: shift;
+  transition-delay: 2s;
+  animation-duration: 4s;
 }
 
 .product-show {
