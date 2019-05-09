@@ -19,13 +19,24 @@
 
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Karla, Helvetica, sans-serif;
+}
+
+// Karla|Lato|Work+Sans
+
+main {
+  min-height: 95vh;
+  max-height: auto;
+}
+
+footer {
+  height: 5vh;
 }
 
 section.intro {
-  background-color: rgb(37, 79, 107);
+  background-image: linear-gradient(-120deg, rgb(37, 79, 107), rgba(37, 79, 107, 0.85), rgb(37, 79, 107));
   width: auto;
-  height: auto;
+  height: 95vh;
   margin: 0;
   padding: 6rem;
 }
@@ -48,6 +59,7 @@ main {
 }
 
 main a {
+  font-family: Work+Sans, Helvetica, sans-serif;
   color: black;
   text-transform: uppercase;
   font-weight: bold;
@@ -152,17 +164,27 @@ p {
 .site_title {
   font-weight: bolder;
   color: white;
-  font-size: 8rem;
+  font-size: 10rem;
   padding: 0;
 }
 
+.site_title {
+  font-family: Work+Sans, Helvetica, sans-serif;
+  font-weight: bolder;
+  color: white;
+  position: relative;
+  top: -45px;
+  font-size: 10rem;
+}
+
 @keyframes fade {
-  from {opacity: 0;}
-  to {color: white;}
+  0% {opacity: 0;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 #scam_fade {
   animation-name: fade;
   transition-delay: 2s;
-  animation-duration: 2s;
+  animation-duration: 4s;
 }
