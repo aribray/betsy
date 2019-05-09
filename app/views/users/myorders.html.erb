@@ -9,7 +9,7 @@
 <section>
 <div class="card">
   <div class="card-body">
-  <h4 class="card-header">All Orders</h4>
+  <h4 class="card-header">All Orders (<%= @user.orderitems.length %>)</h4>
   <table class="table">
       <thead>
         <tr>
@@ -49,7 +49,7 @@
 <section>
 <div class="card">
   <div class="card-body">
-  <h4 class="card-header">Orders Awaiting Shipment</h4>
+  <h4 class="card-header">Orders Awaiting Shipment (<%= @user.orderitems.where(shipped: "false").length %>) </h4>
   <table class="table">
       <thead>
         <tr>
@@ -89,7 +89,7 @@
 <section>
 <div class="card">
   <div class="card-body">
-  <h4 class="card-header">Shipped Orders</h4>
+  <h4 class="card-header">Shipped Orders (<%= @user.orderitems.where(shipped: "true").length %>)</h4>
   <table class="table">
       <thead>
         <tr>

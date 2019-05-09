@@ -12,4 +12,5 @@ class Orderitem < ApplicationRecord
   def item_total
     return self.quantity * self.product.price
   end
+
 end
