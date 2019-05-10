@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :require_login, only: %i[new create edit update retire]
 
   def index
-    @products = Product.all
+    @products = Product.where("quantity > ?", 0)
   end
 
   def show
