@@ -8,7 +8,7 @@ describe OrdersController do
       order = orders(:one)
       get order_path(order.id)
 
-      must_respond_with :found
+      must_respond_with :success
     end
 
     it "will redirect and flash error if the order is not found" do
@@ -51,13 +51,13 @@ describe OrdersController do
     end
 
     it "allows access if order has any of logged-in merchant's items" do
-      user = perform_login # dee owns turtleneck
+      user = perform_login(users(:dee)) # dee owns turtleneck
 
       order = Order.create
       Orderitem.create(order_id: order.id, product_id: products(:turtleneck).id, quantity: 1)
       get order_path(order.id)
 
-      must_respond_with :found
+      must_respond_with :success
     end
 
     it "redirects with flash error if not logged in" do

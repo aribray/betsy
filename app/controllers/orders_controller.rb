@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
       return
     end
-    user_products = @current_order.orderitems.map { |oi| oi.product }
+    user_products = @current_user.orderitems.map { |oi| oi.product }
 
     if @order.orderitems == []
       flash[:error] = "You don't have access to do that."
