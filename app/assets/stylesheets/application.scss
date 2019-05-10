@@ -22,14 +22,14 @@
 }
 
 main {
-  min-height: 95vh;
+  min-height: 115vh;
   max-height: auto;
 }
 
 section.intro {
   background-image: linear-gradient(-120deg, rgb(37, 79, 107), rgba(37, 79, 107, 0.85), rgb(37, 79, 107));
   width: auto;
-  height: 95vh;
+  height: 115vh;
   margin: -50px;
   padding: 6rem;
 }
@@ -282,7 +282,7 @@ footer {
   display: flex;
   flex-direction: row;
   flex-grow: 0;
-  height: 30px;
+  height: 35px;
   background-color: #f8f9fa;
   padding-left: 10px;
   padding-right: 10px;
