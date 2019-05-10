@@ -4,7 +4,7 @@
   <h2>Products Sold by <span class="emphasize"><%=@user.username%></span></h2>
 <% end %>
 <% if @user.products.empty? %>
-  <p class="product-none">Sorry, this merchant does not have any products yet.</p>
+  <p class="product-none">Sorry, this merchant does not have any products.</p>
 <% else %>
   <div class="product-index">
     <% @user.products.each do |product| %>
