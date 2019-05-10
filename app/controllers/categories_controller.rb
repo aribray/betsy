@@ -23,6 +23,7 @@ class CategoriesController < ApplicationController
       flash[:error] = "Could not find category with id: #{params[:id]}"
       redirect_to root_path, status: 302
     end
+    @products = @category.products.where("quantity > ?", 0).sort_by { |product| product.created_at }.reverse
   end
 
   private

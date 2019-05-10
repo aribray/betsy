@@ -1,9 +1,9 @@
 <h2>Products in <span class="emphasize"><%=@category.name%></span> Category</h2>
 <div class="product-index">
-  <% if @category.products.empty? %>
+  <% if @products.empty? %>
     <p class="category-none">Sorry, this category does not have any products.</p>
   <% else %>
-    <% @category.products.each do |product| %>
+    <% @products.each do |product| %>
       <% if product.retired == false %>
         <ul class="product-item">
           <li><%= link_to image_tag(product.photo_url, alt: "product image", class: "img-250-sizing"), product_path(product.id)%></li>

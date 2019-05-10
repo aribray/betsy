@@ -3,11 +3,11 @@
 <% else %>
   <h2>Products Sold by <span class="emphasize"><%=@user.username%></span></h2>
 <% end %>
-<% if @user.products.empty? %>
+<% if @products.empty? %>
   <p class="product-none">Sorry, this merchant does not have any products.</p>
 <% else %>
   <div class="product-index">
-    <% @user.products.each do |product| %>
+    <% @products.each do |product| %>
       <% if product.retired == false %>
         <ul class="product-item">
           <li><%= link_to image_tag(product.photo_url, alt: "product image", class: "img-250-sizing"), product_path(product.id)%></li>
