@@ -1,11 +1,11 @@
 <h2>Account Details for <%=@user.username%></h2>
-<%# <nav> %>
-<%= link_to "Create New Category", new_category_path %>
-<%= link_to "Create New Product", new_product_path%>
-<%= link_to "View Related Orders", myorders_path %>
-<%# </nav> %>
+<section class="btn-group">
+    <a><%= button_to "CREATE NEW CATEGORY", new_category_path, method: :get, class: "btn btn-info" %></a>
+    <a><%= button_to "CREATE NEW PRODUCT", new_product_path, method: :get, class: "btn btn-info" %></a>
+    <a><%= button_to "VIEW RELATED ORDERS", myorders_path, method: :get, class: "btn btn-info" %></a>
+</section>
 <table class="table">
-  <thead>
+  <thead class="table-info">
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
@@ -22,11 +22,11 @@
         <td><%= product.description%></td>
         <td>$<%= product.price%></td>
         <td><%= product.quantity%></td>
-        <td><%= link_to "Edit Product", edit_product_path(product.id)%></td>
+        <td><%= button_to "EDIT PRODUCT", edit_product_path(product.id), method: :get, class: "btn btn-info" %></td>
         <% if product.retired == false%>
-          <td><%= link_to "Retire", retire_path(product.id), method: :patch, class: "color-red" %></td>
+          <td><%= button_to "RETIRE", retire_path(product.id), method: :patch, class: "btn btn-danger" %></td>
         <%else%>
-          <td><%= link_to "Reinstate", retire_path(product.id), method: :patch, class: "color-green" %></td>
+          <td><%= button_to "REINSTATE", retire_path(product.id), method: :patch, class: "btn btn-success" %></td>
         <%end%>
       </tr>
     <% end %>

@@ -78,6 +78,7 @@ a:hover {
 
 h2 {
   text-align: center;
+  padding: 2rem;
 }
 
 header a {
@@ -312,12 +313,12 @@ footer ul li {
     height: auto;
 }
 
-.color-green {
-  color: darkgreen;
+.btn-group a {
+  padding: 5px 5px 10px 5px;
 }
 
-.color-red {
-  color: darkred;
+.fa-shopping-cart {
+  padding: 10px 20px 10px 10px;
 }
 
 .alert {
