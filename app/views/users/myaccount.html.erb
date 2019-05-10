@@ -1,8 +1,12 @@
-<h2>Account Details for <%=@user.username%></h2>
+<% if @user.name %>
+  <h2>Account Details for <%=@user.name%></h2>
+<% else %>
+  <h2>Account Details for <%=@user.username%></h2>
+<% end %>
 <section class="btn-group">
-    <a><%= button_to "CREATE NEW CATEGORY", new_category_path, method: :get, class: "btn btn-info" %></a>
-    <a><%= button_to "CREATE NEW PRODUCT", new_product_path, method: :get, class: "btn btn-info" %></a>
-    <a><%= button_to "VIEW RELATED ORDERS", myorders_path, method: :get, class: "btn btn-info" %></a>
+  <a><%= button_to "CREATE NEW CATEGORY", new_category_path, method: :get, class: "btn btn-info" %></a>
+  <a><%= button_to "CREATE NEW PRODUCT", new_product_path, method: :get, class: "btn btn-info" %></a>
+  <a><%= button_to "VIEW RELATED ORDERS", myorders_path, method: :get, class: "btn btn-info" %></a>
 </section>
 <table class="table">
   <thead class="table-info">
@@ -18,7 +22,7 @@
   <tbody>
     <% @user.products.each do |product| %>
       <tr>
-        <th scope="row"> <%= link_to product.name, product_path(product.id)%> </th> 
+        <th scope="row"> <%= link_to product.name, product_path(product.id)%> </th>
         <td><%= product.description%></td>
         <td>$<%= product.price%></td>
         <td><%= product.quantity%></td>
