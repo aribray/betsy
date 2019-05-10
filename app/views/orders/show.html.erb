@@ -21,8 +21,8 @@
       <td><%= @order.address %></td>
     </tr>
     <tr>
-      <th>last 4 digits of cc</th>
-      <td><%= @order.cc_number.to_s[-4..-1].to_i %></td>
+      <th>cc number</th>
+      <td>####-####-####-<%= @order.cc_number.to_s[-4..-1].to_i %></td>
     </tr>
     <tr>
       <th>cc expiration date</th>
