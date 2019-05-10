@@ -107,6 +107,17 @@ describe OrderitemsController do
         must_redirect_to root_path
         expect(flash[:error]).must_equal "Could not find this product"
       end
+      it "will change the order status to complete if all orderitems belonging to the order have shipped" do
+        item = @user.orderitems.first
+        item2 = @user.orderitems.last
+
+        order = Order.find_by(id: item.order_id)
+
+        patch ship_path(item.id)
+        patch ship_path(item2.id)
+        must_respond_with :redirect
+        expect(order.reload.status).must_equal "complete"
+      end
     end
 
     describe "logged out users" do
