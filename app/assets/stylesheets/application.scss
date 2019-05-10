@@ -144,7 +144,7 @@ p {
   font-weight: bold;
 }
 
-.product-none {
+.product-none, .category-none {
   text-align: center;
   font-style: italic;
   margin: 50px;
@@ -307,9 +307,9 @@ footer ul li {
   padding: 4px;
 }
 
-.test {
+.img-250-sizing {
     height: 250px;
-    max-width:250px;
+    max-width: 250px;
     height: auto;
 }
 
