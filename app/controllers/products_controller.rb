@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :require_login, only: %i[new create edit update retire]
 
   def index
-    @products = Product.where("quantity > ?", 0).sort_by { |product| product.created_at }.reverse
+    @products = Product.where("quantity > ?", 0).sort_by { |product| product.created_at }
   end
 
   def show
