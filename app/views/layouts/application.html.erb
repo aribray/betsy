@@ -45,9 +45,9 @@
         <% end %>
         <li class="nav-item">
           <% if session[:order_id] %>
-            <%= button_to "Cart", cart_path, method: :get, class: "btn btn-dark nav-link" %>
+            <%= link_to cart_path do %><i class="fa fa-shopping-cart fa-lg"></i><% end %>
           <% else %>
-            <%= button_to "Cart", empty_order_path, method: :get, class: "btn btn-dark nav-link" %>
+            <%= link_to cart_path do %><i class="fa fa-shopping-cart fa-lg"></i><% end %>
           <% end %>
         </li>
       </nav>
