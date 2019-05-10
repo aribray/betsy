@@ -1,14 +1,36 @@
-<h2>Order #<%= @order.id %></h2>
 
-<h5>Name</h5>
-<p><%= @order.cc_name %></p>
-<h5>Email address</h5>
-<p><%= @order.email %></p>
-<h5>Mailing address</h5>
-<p><%= @order.address %></p>
-<h5>Last 4 digits of CC</h5>
-<p><%= @order.cc_number.to_s[-4..-1].to_i %></p>
-<h5>CC expiration date</h5>
-<p><%= @order.cc_expiration.to_s[0..1].to_i %>/<%= @order.cc_expiration.to_s[-4..-1].to_i %></p>
-<h5>Status</h5>
-<p><%= @order.status %></p>
+<table class="table order-show-table">
+  <thead>
+    <tr>
+      <td colspan="2" class="order-title">
+        <h2>Order #<%= @order.id %></h2>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>name</th>
+      <td><%= @order.cc_name %></td>
+    </tr>
+    <tr>
+      <th>email address</th>
+      <td><%= @order.email %></td>
+    </tr>
+    <tr>
+      <th>mailing address</th>
+      <td><%= @order.address %></td>
+    </tr>
+    <tr>
+      <th>last 4 digits of cc</th>
+      <td><%= @order.cc_number.to_s[-4..-1].to_i %></td>
+    </tr>
+    <tr>
+      <th>cc expiration date</th>
+      <td><%= @order.cc_expiration.to_s[0..1].to_i %>/<%= @order.cc_expiration.to_s[-4..-1].to_i %></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><%= @order.status %></td>
+    </tr>
+  </tbody>
+</table>

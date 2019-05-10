@@ -282,7 +282,10 @@ footer {
   display: flex;
   flex-direction: row;
   flex-grow: 0;
-  height: 16px;
+  height: 30px;
+  background-color: #f8f9fa;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 footer p {
@@ -303,6 +306,7 @@ footer ul li {
   list-style-type: none;
   padding: 4px;
 }
+
 .test {
     height: 250px;
     max-width:250px;
@@ -315,4 +319,22 @@ footer ul li {
 
 .fa-shopping-cart {
   padding: 10px 20px 10px 10px;
+}
+
+.alert {
+  margin-bottom: 0;
+}
+
+.product-image {
+  padding: 0;
+}
+
+.order-show-table {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td.order-title {
+  border-top: none;
 }

@@ -1,123 +1,127 @@
 <h2>Orders associated with <%=@user.username%></h2>
-
 <h3>Total Revenue: $<%= User.total_revenue(@user)%></h3>
 <h3>Shipped Products Revenue: $<%= User.total_revenue(@user, shipped: "true")%></h3>
 <h3>Pending Products Revenue: $<%= User.total_revenue(@user, shipped: "false")%></h3>
-
-
 <section>
-<div class="card">
-  <div class="card-body">
-  <h4 class="card-header">All Orders (<%= @user.orderitems.length %>)</h4>
-  <table class="table">
-      <thead class="table-info">
-        <tr>
-          <th scope="col">Order</th>
-          <th scope="col">Item</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Order Placed</th>
-          <th scope="col">Mark as Shipped</th>
-          <th scope="col">Order Status</th>
-        </tr> 
-      </thead>
-      <tbody>
-      <% if !@user.orderitems.nil? %>
-        <% @user.orderitems.each do |item| %>
-          <tr>
-            <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %>
-            <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
-            <td><%= item.quantity%>
-            <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
-            <td><%= item.created_at.to_date %>
-            <% if item.shipped == false%>
-              <td><%= button_to "Ship", ship_path(item.id), method: :patch, class: "btn btn-danger" %>
-            <%else%>
-              <td>Item Shipped
-            <%end%>
-            <td><%= Order.find_by(id: item.order_id).status %>
-          </tr>
-        <% end %>
-      <%end%>
-      </tbody>
-    </table>
-  </div>
-</div>
-</section>
 
-<section>
-<div class="card">
-  <div class="card-body">
-  <h4 class="card-header">Orders Awaiting Shipment (<%= @user.orderitems.where(shipped: "false").length %>) </h4>
-  <table class="table">
-      <thead class="table-info">
-        <tr>
-          <th scope="col">Order</th>
-          <th scope="col">Item</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Order Placed</th>
-          <th scope="col">Mark as Shipped</th>
-          <th scope="col">Order Status</th>
-        </tr> 
-      </thead>
-      <tbody>
-      <% if !@user.orderitems.nil? %>
-        <% @user.orderitems.where(shipped: "false").each do |item| %>
-          <tr>
-            <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %>
-            <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
-            <td><%= item.quantity%>
-            <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
-            <td><%= item.created_at.to_date %>
-            <% if item.shipped == false%>
-              <td><%= button_to "Ship", ship_path(item.id), method: :patch, class: "btn btn-danger" %>
-            <%else%>
-              <td>Item Shipped
-            <%end%>
-            <td><%= Order.find_by(id: item.order_id).status %>
-          </tr>
-        <% end %>
-      <%end%>
-      </tbody>
-      </table>
-  </div>
-</div>
-</section>
-
-<section>
   <div class="card">
-  <div class="card-body">
-  <h4 class="card-header">Shipped Orders (<%= @user.orderitems.where(shipped: "true").length %>)</h4>
-  <table class="table">
-      <thead class="table-info">
-        <tr>
-          <th scope="col">Order</th>
-          <th scope="col">Item</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Subtotal</th>
-          <th scope="col">Order Placed</th>
-          <th scope="col">Mark as Shipped</th>
-          <th scope="col">Order Status</th>
-        </tr> 
+    <div class="card-body">
+      <h4 class="card-header">All Orders (<%= @user.orderitems.length %>)</h4>
+      <table class="table">
+        <thead class="table-info">
+          <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Order Placed</th>
+            <th scope="col">Mark as Shipped</th>
+            <th scope="col">Order Status</th>
+          </tr>
         </thead>
         <tbody>
-        <% if !@user.orderitems.nil? %>
-          <% @user.orderitems.where(shipped: "true").each do |item| %>
+          <% if !@user.orderitems.nil? %>
+            <% @user.orderitems.each do |item| %>
+              <tr>
+                <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %></td>
+                <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
+                <td><%= item.quantity%></td>
+                <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%></td>
+                <%# could be pulled out into helper method?%>
+                <td><%= item.created_at.to_date %></td>
+                <% if item.shipped == false%>
+                  <td><%= link_to "Ship", ship_path(item.id), method: :patch %></td>
+                <%else%>
+                  <td>Item Shipped</td>
+                <%end%>
+                <td><%= Order.find_by(id: item.order_id).status %></td>
+              </tr>
+            <% end %>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-header">Orders Awaiting Shipment (<%= @user.orderitems.where(shipped: "false").length %>) </h4>
+      <table class="table">
+        <thead class="table-info">
           <tr>
-            <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %>
-            <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
-            <td><%= item.quantity%>
-            <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
-            <td><%= item.created_at.to_date %>
-            <% if item.shipped == false%>
-              <td><%= link_to "Ship", ship_path(item.id), method: :patch %>
-            <%else%>
-              <td>Item Shipped
-            <%end%>
-            <td><%= Order.find_by(id: item.order_id).status %>
+            <th scope="col">Order</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Order Placed</th>
+            <th scope="col">Mark as Shipped</th>
+            <th scope="col">Order Status</th>
           </tr>
-        <% end %>
-      <%end%>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+          <% if !@user.orderitems.nil? %>
+            <% @user.orderitems.where(shipped: "false").each do |item| %>
+              <tr>
+                <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %></td>
+                <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
+                <td><%= item.quantity%></td>
+                <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%></td>
+                <%# could be pulled out into helper method?%>
+                <td><%= item.created_at.to_date %></td>
+                <% if item.shipped == false%>
+                  <td><%= link_to "Ship", ship_path(item.id), method: :patch %></td>
+                <%else%>
+                  <td>Item Shipped</td>
+                <%end%>
+                <td><%= Order.find_by(id: item.order_id).status %></td>
+              </tr>
+            <% end %>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="card">
+
+    <div class="card-body">
+      <h4 class="card-header">Shipped Orders (<%= @user.orderitems.where(shipped: "true").length %>)</h4>
+      <table class="table">
+        <thead class="table-info">
+          <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Order Placed</th>
+            <th scope="col">Mark as Shipped</th>
+            <th scope="col">Order Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if !@user.orderitems.nil? %>
+            <% @user.orderitems.where(shipped: "true").each do |item| %>
+              <tr>
+                <td><%= link_to Order.find_by(id: item.order_id).id, order_path(Order.find_by(id: item.order_id).id) %></td>
+                <th scope="row"><%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %></th>
+                <td><%= item.quantity%></td>
+                <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%></td>
+                <%# could be pulled out into helper method?%>
+                <td><%= item.created_at.to_date %></td>
+                <% if item.shipped == false%>
+                  <td><%= link_to "Ship", ship_path(item.id), method: :patch %></td>
+                <%else%>
+                  <td>Item Shipped</td>
+                <%end%>
+                <td><%= Order.find_by(id: item.order_id).status %></td>
+              </tr>
+            <% end %>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -198,7 +198,7 @@ describe ProductsController do
         end
 
         it "will update an existing product" do
-          updated_input_description = "a sleak black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam"
+          updated_input_description = "a sleek black, lightweight, breathable wool turtleneck, perfect for those moments when you're sweating your scam"
 
           updated_test_input = {
             "product": {
