@@ -10,7 +10,7 @@
   <div class="card-body">
   <h4 class="card-header">All Orders (<%= @user.orderitems.length %>)</h4>
   <table class="table">
-      <thead>
+      <thead class="table-info">
         <tr>
           <th scope="col">Order</th>
           <th scope="col">Item</th>
@@ -31,7 +31,7 @@
             <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
             <td><%= item.created_at.to_date %>
             <% if item.shipped == false%>
-              <td><%= link_to "Ship", ship_path(item.id), method: :patch %>
+              <td><%= button_to "Ship", ship_path(item.id), method: :patch, class: "btn btn-danger" %>
             <%else%>
               <td>Item Shipped
             <%end%>
@@ -50,7 +50,7 @@
   <div class="card-body">
   <h4 class="card-header">Orders Awaiting Shipment (<%= @user.orderitems.where(shipped: "false").length %>) </h4>
   <table class="table">
-      <thead>
+      <thead class="table-info">
         <tr>
           <th scope="col">Order</th>
           <th scope="col">Item</th>
@@ -71,7 +71,7 @@
             <td><%= (Product.find_by(id: item.product_id).price) * (item.quantity)%> <%# could be pulled out into helper method?%>
             <td><%= item.created_at.to_date %>
             <% if item.shipped == false%>
-              <td><%= link_to "Ship", ship_path(item.id), method: :patch %>
+              <td><%= button_to "Ship", ship_path(item.id), method: :patch, class: "btn btn-danger" %>
             <%else%>
               <td>Item Shipped
             <%end%>
@@ -90,7 +90,7 @@
   <div class="card-body">
   <h4 class="card-header">Shipped Orders (<%= @user.orderitems.where(shipped: "true").length %>)</h4>
   <table class="table">
-      <thead>
+      <thead class="table-info">
         <tr>
           <th scope="col">Order</th>
           <th scope="col">Item</th>
