@@ -281,7 +281,10 @@ footer {
   display: flex;
   flex-direction: row;
   flex-grow: 0;
-  height: 16px;
+  height: 30px;
+  background-color: #f8f9fa;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 footer p {
@@ -314,4 +317,8 @@ footer ul li {
 
 .color-red {
   color: darkred;
+}
+
+.alert {
+  margin-bottom: 0;
 }
