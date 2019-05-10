@@ -18,7 +18,7 @@
   <tbody>
     <% @user.products.each do |product| %>
       <tr>
-        <th scope="row><%= link_to product.name, product_path(product.id) %></th>
+        <th scope="row"> <%= link_to product.name, product_path(product.id)%> </th> 
         <td><%= product.description%></td>
         <td>$<%= product.price%></td>
         <td><%= product.quantity%></td>
