@@ -25,6 +25,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.photo_url = "https://drive.google.com/uc?id=1ZbXTNksz94BqMzKBNh7SQN4Yj6GlHpTo" if @product.photo_url.empty?
 
     categories = split(params)
     @product.categories << categories
