@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class OrdersController < ApplicationController
   before_action :find_order, except: [:empty_order]
@@ -10,7 +11,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
       return
     end
-    user_products = @current_user.orderitems.map { |oi| oi.product }
+    user_products = @current_user.orderitems.map(&:product)
 
     if @order.orderitems == []
       flash[:error] = "You don't have access to do that."
@@ -19,11 +20,11 @@ class OrdersController < ApplicationController
     end
 
     @order.orderitems.each do |oi|
-      unless user_products.include?(oi.product)
-        flash[:error] = "You don't have access to do that."
-        redirect_to root_path
-        return
-      end
+      next if user_products.include?(oi.product)
+
+      flash[:error] = "You don't have access to do that."
+      redirect_to root_path
+      return
     end
   end
 
@@ -56,46 +57,32 @@ class OrdersController < ApplicationController
     @order = @current_order
     error = false
     errors = {
-      :cc_name => "Credit Card Name cannot be blank.",
-      :cc_number => "Please enter a valid credit card number.",
-      :cvv => "Please enter a valid CVV.",
-      :cc_expiration => "Please enter a valid credit card expiration date.",
-      :email => "Please enter your email address.",
-      :address => "Please enter your address.",
-      :zipcode => "Please enter your zipcode.",
+      cc_name: 'Credit Card Name cannot be blank.',
+      cc_number: 'Please enter a valid credit card number.',
+      cvv: 'Please enter a valid CVV.',
+      cc_expiration: 'Please enter a valid credit card expiration date.',
+      email: 'Please enter your email address.',
+      address: 'Please enter your address.',
+      zipcode: 'Please enter your zipcode.'
     }
 
-    if @order.cc_name == "" || @order.cc_number == nil || @order.cvv == nil || @order.cc_expiration == nil || @order.email == "" || @order.address == "" || @order.zipcode == nil
+    if @order.cc_name == '' || @order.cc_number.nil? || @order.cvv.nil? || @order.cc_expiration.nil? || @order.email == '' || @order.address == '' || @order.zipcode.nil?
       error = true
       flash[:error] = []
     end
 
-    if @order.cc_name == ""
-      flash[:error] << errors[:cc_name]
-    end
-    if @order.cc_number == nil
-      flash[:error] << errors[:cc_number]
-    end
-    if @order.cvv == nil
-      flash[:error] << errors[:cvv]
-    end
-    if @order.cc_expiration == nil
-      flash[:error] << errors[:cc_expiration]
-    end
-    if @order.email == ""
-      flash[:error] << errors[:email]
-    end
-    if @order.address == ""
-      flash[:error] << errors[:address]
-    end
-    if @order.zipcode == nil
-      flash[:error] << errors[:zipcode]
-    end
+    flash[:error] << errors[:cc_name] if @order.cc_name == ''
+    flash[:error] << errors[:cc_number] if @order.cc_number.nil?
+    flash[:error] << errors[:cvv] if @order.cvv.nil?
+    flash[:error] << errors[:cc_expiration] if @order.cc_expiration.nil?
+    flash[:error] << errors[:email] if @order.email == ''
+    flash[:error] << errors[:address] if @order.address == ''
+    flash[:error] << errors[:zipcode] if @order.zipcode.nil?
 
     if error == true
       redirect_to checkout_path
     else
-      @order.status = "paid"
+      @order.status = 'paid'
       session[:order_id] = nil
       @order.orderitems.each do |order_item|
         order_item.product.quantity -= order_item.quantity
@@ -106,9 +93,7 @@ class OrdersController < ApplicationController
   end
 
   def empty_order
-    if session[:order_id]
-      redirect_to cart_path
-    end
+    redirect_to cart_path if session[:order_id]
   end
 
   def order_params
